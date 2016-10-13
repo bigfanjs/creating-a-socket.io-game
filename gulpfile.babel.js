@@ -1,20 +1,24 @@
 import gulp from 'gulp';
+import runSequence from 'run-sequence';
 
 import bundle from './tasks/bundle';
+import nodeBabel from './tasks/node-babel';
 import browserSync from './tasks/browser-sync';
 import nodemon from './tasks/nodemon';
 import testBrowser from './tasks/test-browser';
-import nodeBabel from './tasks/node-babel';
+import testNode from './tasks/test-node';
 import clean from './tasks/clean';
-import runSequence from 'run-sequence';
+import htmlMin from './tasks/html-min';
 
 gulp.task('bundle', bundle());
 gulp.task('node-babel', nodeBabel());
 gulp.task('nodemon', ['node-babel'], nodemon());
-gulp.task('browserSync', browserSync());
+gulp.task('browser-sync', ['nodemon'], browserSync());
+gulp.task('test-node', testNode());
 gulp.task('test-browser', testBrowser());
 gulp.task('clean', clean());
+gulp.task('html-min', htmlMin());
 
 gulp.task('default', cb => {
-  runSequence('clean', ['nodemon', 'browserSync', 'bundle'], cb);
+  runSequence('clean', ['nodemon', 'bundle', 'html-min'], cb);
 });

@@ -18,10 +18,10 @@ const
       .pipe(source('bundle.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(uglify())
+        .pipe(uglify())
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('../build/javascripts/'))
-      // .pipe(reload({ stream: false }));
+      .pipe(gulp.dest('../build/public/javascripts/'))
+      .pipe(reload({ stream: true }));
   };
 
 export default function () {

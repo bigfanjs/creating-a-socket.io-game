@@ -4,11 +4,12 @@ export const bs = browserSync.create();
 export default function () {
   return () => {
     bs.init({
-      baseDir: 'public/javascripts/',
+      baseDir: 'public/',
       files: [
-        './apps/**/*.js',
-        './lib/**/*.js',
-        './*.js'
+        './javascripts/apps/**/*.js',
+        './javascripts/lib/**/*.js',
+        './javascripts/*.js',
+        './*.html'
       ],
       proxy: 'http://localhost:3000',
       port: 5000
