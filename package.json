@@ -5,7 +5,10 @@
 		"email": "bigfanjs@gmail.com"
 	},
 	"scripts": {
-		"test-browser": "gulp test-browser"
+		"test-node": "mocha ",
+		"test-browser": "karma start",
+		"start": "nodemon server.js babel-node --exec --presets es2015,stage-0",
+		"build": "babel lib -d ../build --presets es2015,stage-0"
 	},
 	"description": "Creating A Spot Difference Game",
 	"keywords": [
