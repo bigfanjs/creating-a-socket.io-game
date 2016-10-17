@@ -13,7 +13,7 @@ import htmlMin from './tasks/html-min';
 gulp.task('bundle', bundle());
 gulp.task('node-babel', nodeBabel());
 gulp.task('nodemon', ['node-babel'], nodemon());
-gulp.task('browser-sync', ['nodemon'], browserSync());
+// gulp.task('browser-sync', ['nodemon'], browserSync());
 gulp.task('test-node', testNode());
 gulp.task('test-browser', testBrowser());
 gulp.task('clean', clean());
