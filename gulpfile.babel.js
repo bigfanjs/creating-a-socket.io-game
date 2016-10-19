@@ -9,6 +9,7 @@ import testBrowser from './tasks/test-browser';
 import testNode from './tasks/test-node';
 import clean from './tasks/clean';
 import htmlMin from './tasks/html-min';
+import cssMin from './tasks/css-min';
 
 gulp.task('bundle', bundle());
 gulp.task('node-babel', nodeBabel());
@@ -18,7 +19,13 @@ gulp.task('test-node', testNode());
 gulp.task('test-browser', testBrowser());
 gulp.task('clean', clean());
 gulp.task('html-min', htmlMin());
+gulp.task('css-min', cssMin());
+
+gulp.task('watch', ['html-min', 'css-min'], function () {
+  gulp.watch('public/*.html', ['html-min']);
+  gulp.watch('public/stylesheets/**/*.css', ['css-min']);
+});
 
 gulp.task('default', cb => {
-  runSequence('clean', ['nodemon', 'bundle', 'html-min'], cb);
+  runSequence('clean', ['watch', 'nodemon', 'bundle'], cb);
 });
