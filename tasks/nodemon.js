@@ -10,6 +10,9 @@ export default function () {
 
     return nodemon({
       script: '../build/server.js',
+      execMap: {
+        "js": "node --harmony"
+      },
       ignore: ['gulpfile.babel.js', '.babelrc', '/node_modules/'],
       tasks: ['node-babel'],
       watch: ['./lib']

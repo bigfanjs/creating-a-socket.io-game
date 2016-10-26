@@ -8,10 +8,10 @@ import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 
-import { bs } from './browser-sync';
+// import { bs } from './browser-sync';
 
 const
-  reload = bs.reload,
+  // reload = bs.reload,
   bundle_js = function ( bundler ) {
     bundler.bundle()
       .on('error', gutil.log)
@@ -20,8 +20,8 @@ const
       .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(uglify())
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('../build/public/javascripts/'))
-      .pipe(reload({ stream: true }));
+      .pipe(gulp.dest('../build/public/javascripts/'));
+      // .pipe(reload({ stream: true }));
   };
 
 export default function () {
@@ -30,8 +30,8 @@ export default function () {
       main = 'public/javascripts/main.js',
       bundler = watchify(
         browserify(main, { debug: true })
-        .transform('babelify', { presets: ['es2015'] })
-        .transform('pugify')
+          .transform('babelify', { presets: ['es2015'] })
+          .transform('pugify')
       );
 
     bundle_js( bundler );

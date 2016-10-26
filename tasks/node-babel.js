@@ -8,10 +8,13 @@ import uglify from 'gulp-uglify';
 export default function () {
   return () => {
     return gulp.src(['server.js', 'lib/**/*.js'], { base: '.' })
-      .pipe(sourcemasps.init())
-        .pipe(babel({ presets: ['es2015'] }))
-        .pipe(uglify())
-      .pipe(sourcemasps.write('.'))
+      // .pipe(sourcemasps.init())
+      //   .pipe(babel({
+      //     presets: ['es2015'],
+      //     plugins: ['transform-runtime']
+      //   }))
+      //   .pipe(uglify())
+      // .pipe(sourcemasps.write('.'))
       .pipe(gulp.dest('../build'));
   };
 }

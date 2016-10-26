@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 import gulp from 'gulp';
 import runSequence from 'run-sequence';
 
@@ -10,6 +12,7 @@ import testNode from './tasks/test-node';
 import clean from './tasks/clean';
 import htmlMin from './tasks/html-min';
 import cssMin from './tasks/css-min';
+import imageMin from './tasks/image-min';
 
 gulp.task('bundle', bundle());
 gulp.task('node-babel', nodeBabel());
@@ -20,6 +23,7 @@ gulp.task('test-browser', testBrowser());
 gulp.task('clean', clean());
 gulp.task('html-min', htmlMin());
 gulp.task('css-min', cssMin());
+gulp.task('image-min', imageMin());
 
 gulp.task('watch', ['html-min', 'css-min'], function () {
   gulp.watch('public/*.html', ['html-min']);
@@ -27,5 +31,5 @@ gulp.task('watch', ['html-min', 'css-min'], function () {
 });
 
 gulp.task('default', cb => {
-  runSequence('clean', ['watch', 'nodemon', 'bundle'], cb);
+  runSequence('clean', ['watch', 'nodemon', 'bundle', 'image-min'], cb);
 });
