@@ -3,6 +3,8 @@
  two identical images with a few number of hidden differences which
  you have to find them all.
 
-# Troubles:
+## Troubles:
 * Unfortunately, I can't rely on browser-sync for live loading in my
   devolopment process because it conflicts with my application as they are both using socket.io.
+
+## Working on it...
