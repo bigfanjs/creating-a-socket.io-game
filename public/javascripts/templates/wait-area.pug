@@ -1,11 +1,3 @@
-panel.panel-heading Group for #{ amount } of players
-panel.panel-body
-  table.table.table-striped.table-bordered
-    tbody
-      tr
-        - var i = -1
-        while ( i++ < (amount-1) )
-          if players[ i ]
-            td= players[ i ]
-          else
-            td: img(src="./images/load.gif")
+.panel-primary
+  .panel.panel-heading Group of #{ amount } players
+  .panel.panel-body#player-list
