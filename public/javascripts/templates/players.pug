@@ -1,0 +1,9 @@
+table.table.table-striped.table-bordered
+  tbody
+    tr
+      - var i = -1
+      while ( i++ < (amount-1) )
+        if players[ i ]
+          td= players[ i ]
+        else
+          td: img(src="./images/load.gif")
