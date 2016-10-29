@@ -1,3 +1,7 @@
 .panel-primary
-  .panel.panel-heading Group of #{ amount } players
+  .panel.panel-heading
+    if typeof amount === 'string' && amount.match( /^any/i )
+      | looking for players...
+    else
+      | Group of #{ amount } players
   .panel.panel-body#player-list
