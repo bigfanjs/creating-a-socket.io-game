@@ -1,9 +1,11 @@
 h4 Logg in
 form#player-form
   .form-group
-    label(for="name") Name
+    label.control-label(for="name-input") Name
     input.form-control#name-input(type="text")
-    label(for="players-num") Number Of Players
+    span#name-help-block.help-block
+  .form-group
+    label.control-label(for="players-num") Number Of Players
     select.form-control#players-num
       option(value="any") Any
       option(value="2") 2
