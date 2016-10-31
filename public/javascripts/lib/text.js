@@ -1,17 +1,23 @@
-export default {
-  x: 0,
-  y: 0,
-  fontSize: 10,
-  fontFamily: 'tahoma',
-  text: 'text',
-  color: '#000',
-  baseLine: 'center',
-  rotation: 0,
-  draw( ctx ) {
+const behavior = {
+  setup: function ( options ) {
+    const text = Object.assign(
+      Object.create( this ), options
+    );
+
+    return text;
+  },
+  draw: function ( ctx ) {
     ctx.beginPath();
-    ctx.save();
-    ctx.translate( this.tx, this.ty );
-    ctx.rotate( this.rotation );
+
+    if ( this.tx !== null && this.ty !== null ) {
+      ctx.save();
+      ctx.translate( this.tx, this.ty );
+    }
+
+    if ( this.rotate ) {
+      ctx.rotate( this.rotation );
+    }
+
     ctx.fillStyle = this.color;
     ctx.font = this.fontSize + 'px ' + this.fontFamily;
     ctx.textBaseline = this.baseLine;
@@ -19,3 +25,16 @@ export default {
     ctx.restore();
   }
 };
+
+
+export default Object.assign(
+  Object.create( behavior ),
+  { x: 0,
+    y: 0,
+    fontSize: 10,
+    fontFamily: 'tahoma',
+    text: 'text',
+    color: '#000',
+    baseLine: 'center',
+    rotation: 0 }
+);
