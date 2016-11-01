@@ -24,9 +24,10 @@ const behavior = {
     ctx.fillStyle = this.color;
     ctx.font = this.fontSize + 'px ' + this.fontFamily;
 
-    if ( this.baseLine && this.textAlign ) {
-      ctx.textAlign = this.textAlign;
+    if ( this.baseLine ) {
       ctx.textBaseline = this.baseLine;
+    } else if ( this.textAlign ) {
+      ctx.textAlign = this.textAlign;
     }
 
     ctx.fillText( this.text, this.x, this.y );
