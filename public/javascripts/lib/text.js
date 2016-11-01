@@ -7,9 +7,12 @@ const behavior = {
     return text;
   },
   draw: function ( ctx ) {
+    var saved = false;
+
     ctx.beginPath();
 
     if ( this.tx !== null && this.ty !== null ) {
+      saved = true;
       ctx.save();
       ctx.translate( this.tx, this.ty );
     }
@@ -20,9 +23,15 @@ const behavior = {
 
     ctx.fillStyle = this.color;
     ctx.font = this.fontSize + 'px ' + this.fontFamily;
-    ctx.textBaseline = this.baseLine;
+
+    if ( this.baseLine && this.textAlign ) {
+      ctx.textAlign = this.textAlign;
+      ctx.textBaseline = this.baseLine;
+    }
+
     ctx.fillText( this.text, this.x, this.y );
-    ctx.restore();
+
+    if ( saved === true ) { ctx.restore(); }
   }
 };
 
@@ -35,6 +44,5 @@ export default Object.assign(
     fontFamily: 'tahoma',
     text: 'text',
     color: '#000',
-    baseLine: 'center',
     rotation: 0 }
 );
