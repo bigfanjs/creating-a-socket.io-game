@@ -1,4 +1,4 @@
-import Rect from '../../lib/rect';
+import Rect from '../../lib/body';
 
 export default function ( options ) {
   const rect = Rect.setup(
