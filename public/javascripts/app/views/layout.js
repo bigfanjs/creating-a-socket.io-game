@@ -23,16 +23,24 @@ export default {
   getRegion: function ( name ) {
     var region;
 
-    if ((region = this.regions[ name ])) {
-      return {
-        show: function ( view ) {
-          const options = Object.assign({
-            image: this.image, region
-          });
+    if (!(region = this.regions[ name ])) {
+      throw TypeError('No such region!');
+    }
 
-          view( options ).draw( ctx );
-        }
-      };
+    this.region = region;
+
+    return this;
+  },
+  show: function ( View ) {
+    const
+      options = Object.create( this ),
+      view = View( options ),
+      ctx = this.canvas.getContext('2d');
+
+    if (Array.isArray( view )) {
+      view.forEach(v => { v.draw( ctx ); });
+    } else {
+      view.draw( ctx );
     }
   }
 };
