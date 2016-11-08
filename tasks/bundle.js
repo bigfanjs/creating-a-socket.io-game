@@ -7,13 +7,14 @@ import buffer from 'vinyl-buffer';
 import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
+import streamify from 'gulp-streamify';
 
 // import { bs } from './browser-sync';
 
 const
   // reload = bs.reload,
   bundle_js = function ( bundler ) {
-    bundler.bundle()
+    return bundler.bundle()
       .on('error', gutil.log)
       .pipe(source('bundle.js'))
       .pipe(buffer())
@@ -34,8 +35,14 @@ export default function () {
           .transform('pugify')
       );
 
-    bundle_js( bundler );
+    bundle_js( bundler ).on('end', function () {
+      console.log('Done!');
+    });
 
-    bundler.on('update', () => { bundle_js( bundler ); });
+    bundler.on('update', () => {
+      bundle_js( bundler ).on('end', function () {
+        console.log('Done!');
+      });
+    });
   };
 }
