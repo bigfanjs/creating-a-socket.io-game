@@ -1,7 +1,5 @@
 import Text from '../../lib/text';
 
-const assign = Object.assign;
-
 export default function ( options ) {
   const { x, y } = options;
 
