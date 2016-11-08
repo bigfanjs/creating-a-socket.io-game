@@ -1,8 +1,8 @@
 export default {
-  setup: function () {
+  setup: function ( options ) {
     const layout = Object.create( this );
 
-    Object.assign(layout, options);
+    layout.options = options;
 
     return layout;
   },
@@ -19,8 +19,7 @@ export default {
   },
   show: function ( View ) {
     const
-      options = Object.create( this ),
-      view = View( options ),
+      view = View( this.options ),
       ctx = this.canvas.getContext('2d');
 
     if (Array.isArray( view )) {
