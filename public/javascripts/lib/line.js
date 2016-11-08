@@ -1,17 +1,3 @@
-const validate = function ( x, y, pos ) {
-  const
-    isStart = pos.match( /start/i ),
-    str = isStart ? 'Starting' : 'Ending';
-
-  try {
-    if ( !Number( x ) || !Number( y ) ) {
-      throw TypeError(`Ivalid ${ str } Point.`);
-    }
-  } catch ( e ) {
-    return { x: 0, y: 0 };
-  }
-};
-
 export default {
   x1: 0,
   y1: 0,
@@ -19,21 +5,26 @@ export default {
   y2: 0,
   spacing: 5,
   color: '#000',
-  setStart( x = 0, y = 0 ) {
-    if (validate(x, y, 'Start')) {
-      x = y = 0;
-    }
+  setup( options ) {
+    const line = Object.create( this );
+
+    Object.assign(line, options);
+
+    return line;
+  },
+  setStart(x, y) {
 
     this.x1 = x;
     this.y1 = y;
+
+    return this;
   },
-  setTarget( x = 0, y = 0 ) {
-    if (validate(x, y, 'End')) {
-      x = y = 0;
-    }
+  setTarget(x, y) {
 
     this.x2 = x;
     this.y2 = y;
+
+    return this;
   },
   draw( ctx ) {
     ctx.beginPath();
