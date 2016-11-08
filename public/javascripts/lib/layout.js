@@ -3,6 +3,7 @@ export default {
     const layout = Object.create( this );
 
     layout.options = options;
+    Object.assign(layout, options);
 
     return layout;
   },
