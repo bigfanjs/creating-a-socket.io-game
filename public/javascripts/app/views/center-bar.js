@@ -1,11 +1,12 @@
-import Rect from '../../lib/body';
+import Line from '../../lib/line';
 
 export default function ( options ) {
-  const rect = Rect.setup(
-    Object.assign(options, {
-      color: '#000'
-    })
-  );
+  const { sx, sy, tx, ty } = options;
 
-  return rect;
+  const line = Line
+    .setup({})
+    .setStart(sx, sy)
+    .setTarget(tx, ty);
+
+  return line;
 }
