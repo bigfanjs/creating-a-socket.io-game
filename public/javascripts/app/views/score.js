@@ -6,7 +6,7 @@ export default function ( options ) {
   const text = Text.setup({
     x, y,
     text: 'Score',
-    fontSize: 16
+    fontSize: 30
   });
 
   const score = Text.setup({
@@ -14,7 +14,7 @@ export default function ( options ) {
     y: y + 10,
     text: 2,
     color: '#777777',
-    fontSize: 14
+    fontSize: 20
   });
 
   return [ text, score ];

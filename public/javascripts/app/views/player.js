@@ -6,14 +6,14 @@ export default function ( options ) {
   const text = Text.setup({
     x, y,
     text: 'Name',
-    fontSize: 16
+    fontSize: 30
   });
 
   const player = Text.setup({
     x: x,
     y: y + 10,
     text: 'Adel',
-    fontSize: 14,
+    fontSize: 20,
     color: '#777777'
   });
 
