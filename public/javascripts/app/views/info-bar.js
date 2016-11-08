@@ -1,5 +1,3 @@
-import Body from '../../lib/body';
-import Text from '../../lib/text';
 import Layout from '../../lib/layout';
 
 export default function ( options ) {
@@ -11,4 +9,6 @@ export default function ( options ) {
       player: {x: 5, y: 5}
     }
   });
+
+  return layout;
 }
