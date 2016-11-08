@@ -17,5 +17,5 @@ export default function ( options ) {
     fontSize: 14
   });
 
-  return clicks;
+  return [ text, clicks ];
 }
