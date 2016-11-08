@@ -1,9 +1,7 @@
 import Layout from '../../lib/layout';
 
-export default function ( options ) {
-  const
-    layout = Layout.setup( options ),
-    canvas = layout.canvas;
+export default function (canvas, options) {
+  const layout = Layout.setup(canvas, options);
 
   layout.regions = {
     picture: {

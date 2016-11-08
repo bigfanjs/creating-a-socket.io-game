@@ -1,9 +1,11 @@
+const assign = Object.assign;
+
 export default {
-  setup: function ( options ) {
+  setup: function ( canvas, options ) {
     const layout = Object.create( this );
 
     layout.options = options;
-    Object.assign(layout, options);
+    assign(layout, options, { canvas });
 
     return layout;
   },
@@ -20,12 +22,15 @@ export default {
   },
   show: function ( View ) {
     const
-      view = View( this.options ),
+      options = assign({}, this.options, this.region),
+      view = View( options ),
       ctx = this.canvas.getContext('2d');
 
+    console.log( options );
     if (Array.isArray( view )) {
       view.forEach(v => { v.draw( ctx ); });
     } else {
+      console.log('Shit!');
       view.draw( ctx );
     }
   }
