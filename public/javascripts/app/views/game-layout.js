@@ -1,8 +1,8 @@
 import Layout from '../../lib/layout';
 
-export default function () {
+export default function ( options ) {
   const
-    layout = Layout.setup(),
+    layout = Layout.setup( options ),
     canvas = layout.canvas;
 
   layout.regions = {
