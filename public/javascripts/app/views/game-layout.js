@@ -12,7 +12,12 @@ export default function (canvas, options) {
     },
     infoBar: {width: canvas.width, height: 100},
     players: {x: 500, y: 120},
-    centerBar: {x: canvas.width/2, y: 0}
+    centerBar: {
+      sx: canvas.width/2,
+      sy: 0,
+      tx: canvas.width/2,
+      ty: canvas.height
+    }
   };
 
   return layout;
