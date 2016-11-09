@@ -3,11 +3,13 @@ import Layout from '../../lib/layout';
 export default function ( canvas, options ) {
   const layout = Layout.setup(canvas, options);
 
+  const width = canvas.width;
+
   layout.regions = {
-    clicks: {x: 300, y: 5},
-    timeLeft: {x: 200, y: 5},
-    score: {x: 100, y: 5},
-    player: {x: 5, y: 5}
+    clicks: {x: width, y: 10},
+    timeLeft: {x: width/2, y: 10},
+    score: {x: width/3, y: 10},
+    player: {x: width/4, y: 10}
   };
 
   return layout;
