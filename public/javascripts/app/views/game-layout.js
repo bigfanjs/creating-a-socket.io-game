@@ -5,16 +5,16 @@ export default function (canvas, options) {
 
   layout.regions = {
     picture: {
-      x: canvas.width/2,
-      y: 0,
-      width: 2,
+      x: 0,
+      y: 50,
+      width: canvas.width,
       height: canvas.height
     },
     infoBar: {width: canvas.width, height: 100},
     players: {x: 500, y: 120},
     centerBar: {
       sx: canvas.width/2,
-      sy: 0,
+      sy: 50,
       tx: canvas.width/2,
       ty: canvas.height
     }
