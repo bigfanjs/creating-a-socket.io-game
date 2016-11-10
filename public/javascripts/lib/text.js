@@ -37,7 +37,7 @@ export default {
       ctx.textAlign = this.textAlign;
     }
 
-    ctx.fillText( this.text, this.x, this.y );
+    ctx.fillText(this.text, this.x, this.y);
 
     if ( saved === true ) { ctx.restore(); }
 
