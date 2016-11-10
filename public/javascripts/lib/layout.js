@@ -26,11 +26,9 @@ export default {
       view = View( options ),
       ctx = this.canvas.getContext('2d');
 
-    console.log( options );
     if (Array.isArray( view )) {
       view.forEach(v => { v.draw( ctx ); });
     } else {
-      console.log('Shit!');
       view.draw( ctx );
     }
   }
