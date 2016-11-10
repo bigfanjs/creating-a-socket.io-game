@@ -31,12 +31,12 @@ export default {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const
-        opts = { canvas, image },
-        layout = GameLayout(assign(options, opts)),
-        infoBar = InfoBar(assign(options, opts));
+        layout = GameLayout(canvas, options),
+        infoBar = InfoBar(canvas, options);
 
+      layout.getRegion('infoBar').show( InfoBar );
       layout.getRegion('players').show( players );
-      layout.getRegion('picture').show( picture );
+      layout.getRegion('picture').show(picture.bind(null, image));
       layout.getRegion('centerBar').show( centerBar );
 
       infoBar.getRegion('clicks').show( clicks );
