@@ -40,7 +40,7 @@ export default {
         ctx.rect(this.x, this.y, this.width, this.height);
         break;
       case 'image':
-        ctx.drawImage(this.image, this.x, this.y/*, this.width, this.height*/);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         break;
     }
 
