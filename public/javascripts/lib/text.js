@@ -1,4 +1,11 @@
-const behavior = {
+export default {
+  x: 0,
+  y: 0,
+  fontSize: 10,
+  fontFamily: 'tahoma',
+  text: 'text',
+  color: '#000',
+  rotation: 0,
   setup: function ( options ) {
     const text = Object.assign(
       Object.create( this ), options
@@ -11,7 +18,7 @@ const behavior = {
 
     ctx.beginPath();
 
-    if ( this.tx !== null && this.ty !== null ) {
+    if (this.tx !== null && this.ty !== null) {
       saved = true;
       ctx.save();
       ctx.translate( this.tx, this.ty );
@@ -33,17 +40,7 @@ const behavior = {
     ctx.fillText( this.text, this.x, this.y );
 
     if ( saved === true ) { ctx.restore(); }
+
+    return this;
   }
 };
-
-
-export default Object.assign(
-  Object.create( behavior ),
-  { x: 0,
-    y: 0,
-    fontSize: 10,
-    fontFamily: 'tahoma',
-    text: 'text',
-    color: '#000',
-    rotation: 0 }
-);
