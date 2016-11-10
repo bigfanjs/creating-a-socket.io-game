@@ -12,7 +12,7 @@ export default {
   radius: 10,
   color: '#888',
   type: 'circle',
-  border: true,
+  border: false,
   setup: function ( options ) {
     const proto = create( vector );
     assign(proto, this);
