@@ -1,6 +1,6 @@
 import nodemon from 'gulp-nodemon';
 
-import { bs } from './browser-sync';
+// import { bs } from './browser-sync';
 
 // const reload = bs.reload;
 
@@ -13,9 +13,15 @@ export default function () {
       execMap: {
         "js": "node --harmony"
       },
-      ignore: ['gulpfile.babel.js', '.babelrc', '/node_modules/'],
+      ignore: [
+        '../build/**/*.js',
+        './gulpfile.babel.js',
+        '.babelrc',
+        '/node_modules/',
+        '/public/'
+      ],
       tasks: ['node-babel'],
-      watch: ['./lib']
+      watch: ['./server.js', './lib']
     })
     .on('start', function () {
       if ( !called ) {

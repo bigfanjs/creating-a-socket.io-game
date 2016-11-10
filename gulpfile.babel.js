@@ -25,11 +25,12 @@ gulp.task('html-min', htmlMin());
 gulp.task('css-min', cssMin());
 gulp.task('image-min', imageMin());
 
-gulp.task('watch', ['html-min', 'css-min'], function () {
+gulp.task('watch', ['html-min', 'css-min', 'image-min'], function () {
   gulp.watch('public/*.html', ['html-min']);
   gulp.watch('public/stylesheets/**/*.css', ['css-min']);
+  gulp.watch('public/images/**/*.{jpg,png,gif,svg}', ['image-min']);
 });
 
 gulp.task('default', cb => {
-  runSequence('clean', ['watch', 'nodemon', 'bundle', 'image-min'], cb);
+  runSequence('clean', ['watch', 'nodemon', 'bundle'], cb);
 });

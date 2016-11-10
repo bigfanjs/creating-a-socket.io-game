@@ -1,7 +1,7 @@
 import gulp from 'gulp';
-import babel from 'gulp-babel';
-import sourcemasps from 'gulp-sourcemaps';
-import uglify from 'gulp-uglify';
+// import babel from 'gulp-babel';
+// import sourcemasps from 'gulp-sourcemaps';
+// import uglify from 'gulp-uglify';
 
 // use rename.
 
