@@ -8,7 +8,7 @@ export default function (canvas, options) {
       x: 0,
       y: 50,
       width: canvas.width,
-      height: canvas.height
+      height: canvas.height-50
     },
     infoBar: {width: canvas.width, height: 100},
     players: {x: 500, y: 120},
