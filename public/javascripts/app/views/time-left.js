@@ -6,15 +6,16 @@ export default function ( options ) {
   const text = Text.setup({
     x, y,
     text: 'remaining time',
-    fontSize: 30
+    fontSize: 20
   });
 
   const timeLeft = Text.setup({
-    x: x,
-    y: y + 10,
+    x: x + 60,
+    y: y + 20,
     text: '03:25',
-    fontSize: 20,
-    color: '#777777'
+    fontSize: 15,
+    color: 'red',
+    textAlign: 'center'
   });
 
   return [ text, timeLeft ];

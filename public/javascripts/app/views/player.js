@@ -6,15 +6,16 @@ export default function ( options ) {
   const text = Text.setup({
     x, y,
     text: 'Name',
-    fontSize: 30
+    fontSize: 20
   });
 
   const player = Text.setup({
-    x: x,
-    y: y + 10,
+    x: x + 25,
+    y: y + 20,
     text: 'Adel',
-    fontSize: 20,
-    color: '#777777'
+    fontSize: 15,
+    color: 'red',
+    textAlign: 'center'
   });
 
   return [ text, player ];

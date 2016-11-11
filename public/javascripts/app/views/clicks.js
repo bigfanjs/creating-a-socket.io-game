@@ -6,15 +6,16 @@ export default function ( options ) {
   const text = Text.setup({
     x, y,
     text: 'Clicks',
-    fontSize: 30
+    fontSize: 20
   });
 
   const clicks = Text.setup({
-    x: x,
-    y: y + 10,
+    x: x + 25,
+    y: y + 20,
     text: '5/10',
-    color: '#777777',
-    fontSize: 20
+    color: 'red',
+    fontSize: 15,
+    textAlign: 'center'
   });
 
   return [ text, clicks ];
