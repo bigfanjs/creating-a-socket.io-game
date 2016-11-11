@@ -1,7 +1,7 @@
 import Text from '../../lib/text';
 
 export default function ( options ) {
-  const { x, y } = options;
+  const { x, y, name } = options;
 
   const text = Text.setup({
     x, y,
@@ -12,7 +12,7 @@ export default function ( options ) {
   const player = Text.setup({
     x: x + 25,
     y: y + 20,
-    text: 'Adel',
+    text: name,
     fontSize: 15,
     color: 'red',
     textAlign: 'center'

@@ -24,8 +24,13 @@ function load( callback ) {
 }
 
 export default {
-  init( canvas, options ) {
-    const ctx = canvas.getContext('2d');
+  init( canvas, socket, options ) {
+    const
+      ctx = canvas.getContext('2d'),
+      id = socket.id,
+      p = options.players.find(p => p.id.substr(2) === id);
+
+    options.name = p.name;
 
     load().then(function ( image ) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
