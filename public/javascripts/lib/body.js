@@ -12,7 +12,9 @@ export default {
   radius: 10,
   color: '#888',
   type: 'circle',
+  fill: true,
   border: false,
+  lineWidth: 1,
   setup: function ( options ) {
     const proto = create( vector );
     assign(proto, this);
@@ -44,8 +46,16 @@ export default {
         break;
     }
 
-    if (this.type !== 'image') { ctx.fill(); }
-    if (this.border) { ctx.stroke(); }
+    if (this.type !== 'image' && this.fill) {
+      ctx.fill();
+    }
+    if (this.border) {
+      if (this.lineWidth) {
+        ctx.lineWidth = this.lineWidth;
+      }
+
+      ctx.stroke();
+    }
   },
   setPos: function ( x, y ) {
     if (arguments.length !== 2) {
