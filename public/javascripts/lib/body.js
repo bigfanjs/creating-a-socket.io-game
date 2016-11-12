@@ -1,3 +1,4 @@
+import isObject from 'lodash/isObject';
 import vector from './vector';
 
 const
@@ -76,16 +77,23 @@ export default {
     return this;
   },
   setPos: function ( x, y ) {
-    if (arguments.length !== 2) {
+    if (!isObject( x ) && arguments.length !== 2) {
       throw TypeError('setPos() accepts two arguments');
+    }
+
+    if (isObject( x ) && ( x.x && x.y )) {
+      const pos = x;
+
+      x = pos.x;
+      y = pos.y;
     }
 
     if (!Number( x ) || !Number( y )) {
       throw TypeError('Invalid position');
     }
 
-    this.y = y;
-    this.x = x;
+    this.y = this.px = y;
+    this.x = this.py = x;
 
     return this;
   }
