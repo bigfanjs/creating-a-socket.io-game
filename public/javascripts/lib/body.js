@@ -7,6 +7,8 @@ const
 export default {
   x: 0,
   y: 0,
+  px: 0,
+  py: 0,
   width: 50,
   height: 50,
   radius: 10,
@@ -56,6 +58,22 @@ export default {
 
       ctx.stroke();
     }
+
+    return this;
+  },
+  update: function () {
+    var vx, vy;
+
+    vx = this.x - this.px;
+    vy = this.y - this.py;
+
+    this.x += vx + 0.1;
+    this.y += vy + 0.1;
+
+    this.px = this.x;
+    this.py = this.y;
+
+    return this;
   },
   setPos: function ( x, y ) {
     if (arguments.length !== 2) {
