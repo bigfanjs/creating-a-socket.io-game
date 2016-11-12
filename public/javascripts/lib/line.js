@@ -1,14 +1,18 @@
+import vector from './vector';
+
 export default {
   x1: 0,
   y1: 0,
   x2: 0,
   y2: 0,
-  spacing: 5,
   color: '#000',
+  lineWidth: 1,
   setup( options ) {
-    const line = Object.create( this );
+    const proto = create(vector);
+    assign(proto, this);
 
-    Object.assign(line, options);
+    const line = create( proto );
+    assign(line, options);
 
     return line;
   },
@@ -29,6 +33,9 @@ export default {
   draw( ctx ) {
     ctx.beginPath();
     ctx.strokeStyle = this.color;
+    if ( this.lineWidth ) {
+      ctx.lineWidth = this.lineWidth;
+    }
     ctx.moveTo( this.x1, this.y1 );
     ctx.lineTo( this.x2, this.y2 );
     ctx.stroke();
