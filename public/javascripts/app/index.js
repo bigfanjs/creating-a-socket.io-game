@@ -9,7 +9,21 @@ import timeLeft from './views/time-left';
 import score from './views/score';
 import player from './views/player';
 
-const assign = Object.assign;
+// import actions:
+import click from './actions/click';
+
+window.requestAnimFrame =
+  window.requestAnimationFrame       ||
+  window.webkitRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame    ||
+  window.oRequestAnimationFrame      ||
+  window.msRequestAnimationFrame     ||
+  (callback => window.setTimeout(callback, 1000/60));
+
+const
+  assign = Object.assign,
+  actions = [];
 
 function load( callback ) {
   const image = new Image();
@@ -33,21 +47,31 @@ export default {
     options.name = p.name;
 
     load().then(function ( image ) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       const
         layout = GameLayout(canvas, options),
         infoBar = InfoBar(canvas, options);
 
-      layout.getRegion('infoBar').show( InfoBar );
-      layout.getRegion('players').show( players );
-      layout.getRegion('picture').show(picture.bind(null, image));
-      layout.getRegion('centerBar').show( centerBar );
+      const clickAction = click(canvas, actions);
 
-      infoBar.getRegion('clicks').show( clicks );
-      infoBar.getRegion('timeLeft').show( timeLeft );
-      infoBar.getRegion('score').show( score );
-      infoBar.getRegion('player').show( player );
+      const gameLoop = function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        layout.getRegion('infoBar').show( InfoBar );
+        layout.getRegion('players').show( players );
+        layout.getRegion('picture').show(picture.bind(null, image));
+        layout.getRegion('centerBar').show( centerBar );
+
+        infoBar.getRegion('clicks').show( clicks );
+        infoBar.getRegion('timeLeft').show( timeLeft );
+        infoBar.getRegion('score').show( score );
+        infoBar.getRegion('player').show( player );
+
+        actions.forEach(action => {
+          action.update().draw( ctx );
+        });
+
+        requestAnimFrame(gameLoop);
+      }();
     });
   }
 };
