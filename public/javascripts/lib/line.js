@@ -1,5 +1,9 @@
 import vector from './vector';
 
+const
+  create = Object.create,
+  assign = Object.assign;
+
 export default {
   x1: 0,
   y1: 0,
