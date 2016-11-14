@@ -12,7 +12,8 @@ export default {
   py: 0,
   width: 50,
   height: 50,
-  radius: 10,
+  radius: 0,
+  pradius: 0,
   color: '#888',
   type: 'circle',
   fill: true,
@@ -29,12 +30,20 @@ export default {
   },
   draw: function ( ctx ) {
     ctx.beginPath();
+    ctx.save();
+
+    if (this.opacity !== null) {
+      ctx.globalAlpha = Math.max(this.opacity, 0);
+    }
 
     if ( this.border ) {
       ctx.strokeStyle = this.strokeStyle;
       ctx.lineWidth = this.lineWidth;
     }
 
+    if ( this.borderColor ) {
+      ctx.strokeStyle = this.borderColor;
+    }
     ctx.fillStyle = this.color;
 
     switch ( this.type ) {
@@ -60,19 +69,28 @@ export default {
       ctx.stroke();
     }
 
+    ctx.restore();
+
     return this;
   },
   update: function () {
     var vx, vy;
 
-    vx = this.x - this.px;
-    vy = this.y - this.py;
+    const
+      x = this.x, y = this.y,
+      radius = this.radius;
 
-    this.x += vx + 0.1;
-    this.y += vy + 0.1;
+    switch ( this.type ) {
+      case 'circle':
+        this.radius += radius - this.pradius + 0.1;
+        this.pradius = radius;
 
-    this.px = this.x;
-    this.py = this.y;
+        if ( this.opacity > 0 ) {
+          this.opacity -= 0.06;
+        }
+
+        break;
+    }
 
     return this;
   },
@@ -81,7 +99,7 @@ export default {
       throw TypeError('setPos() accepts two arguments');
     }
 
-    if (isObject( x ) && ( x.x && x.y )) {
+    if (isObject( x ) && ( x.x !== null && x.y !== null )) {
       const pos = x;
 
       x = pos.x;
@@ -92,8 +110,8 @@ export default {
       throw TypeError('Invalid position');
     }
 
-    this.y = this.px = y;
-    this.x = this.py = x;
+    this.x = this.px = x;
+    this.y = this.py = y;
 
     return this;
   }
