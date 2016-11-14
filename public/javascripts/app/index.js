@@ -67,6 +67,9 @@ export default {
         infoBar.getRegion('player').show( player );
 
         actions.forEach(action => {
+          if ( action.opacity <= 0 ) {
+            actions.splice(actions.indexOf( action ), 1);
+          }
           action.update().draw( ctx );
         });
 
