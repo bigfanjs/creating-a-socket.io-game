@@ -1,22 +1,28 @@
 import Text from '../../lib/text';
+import isObject from 'lodash/isObject';
+
+const text = Text.setup({
+  text: 'remaining time',
+  fontSize: 20
+});
+
+const timeLeft = Text.setup({
+  text: '03:25',
+  fontSize: 15,
+  color: 'red',
+  textAlign: 'center'
+});
 
 export default function ( options ) {
-  const { x, y } = options;
+  if (isObject( options )) {
+    const { x, y } = options;
 
-  const text = Text.setup({
-    x, y,
-    text: 'remaining time',
-    fontSize: 20
-  });
+    text.x = x;
+    text.y = y;
 
-  const timeLeft = Text.setup({
-    x: x + 60,
-    y: y + 20,
-    text: '03:25',
-    fontSize: 15,
-    color: 'red',
-    textAlign: 'center'
-  });
+    timeLeft.x = x + 60;
+    timeLeft.y = y + 20;
+  }
 
   return [ text, timeLeft ];
 }
