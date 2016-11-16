@@ -13,15 +13,13 @@ export default function () {
       execMap: {
         "js": "node --harmony"
       },
-      ignore: [
-        '../build/**/*.js',
-        './gulpfile.babel.js',
-        '.babelrc',
-        '/node_modules/',
-        '/public/'
-      ],
+      ignore: ['gulpfile.babel.js', '.babelrc', '/node_modules/'],
       tasks: ['node-babel'],
-      watch: ['./server.js', './lib']
+      watch: [
+        'server.js',
+        'lib/**/*.js',
+        'app/**/*.js'
+      ]
     })
     .on('start', function () {
       if ( !called ) {
