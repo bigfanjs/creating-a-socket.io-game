@@ -9,13 +9,13 @@ module.exports = function gameStartHandler( socket ) {
     (function timer() {
       const
         currTime = new Date().getTime(),
-        timeLeft = 60*1000 - (currTime - startTime);
+        timeLeft = Math.max(0, 60*1000 - (currTime - startTime));
 
       socket.emit('time-left', { text: timeLeft });
 
       timeout = setTimeout(timer, 100);
 
-      if ( timeLeft < 0 ) {
+      if ( timeLeft <= 0 ) {
         clearTimeout(timeout);
         socket.emit('game-over');
       }
