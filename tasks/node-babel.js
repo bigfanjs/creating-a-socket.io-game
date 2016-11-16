@@ -7,7 +7,11 @@ import gulp from 'gulp';
 
 export default function () {
   return () => {
-    return gulp.src(['server.js', 'lib/**/*.js'], { base: '.' })
+    return gulp.src([
+      'server.js',
+      'lib/**/*.js',
+      'app/**/*.js'
+      ], { base: '.' })
       // .pipe(sourcemasps.init())
       //   .pipe(babel({
       //     presets: ['es2015'],
