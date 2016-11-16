@@ -4,7 +4,7 @@ const
   forEach = require('lodash/forEach'),
   find = require('lodash/find');
 
-const GroupMaker = require('../group-maker');
+const GroupMaker = require('../../lib/group-maker');
 
 const groups = [];
 
