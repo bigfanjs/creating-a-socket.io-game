@@ -7,7 +7,7 @@ const text = Text.setup({
 });
 
 const timeLeft = Text.setup({
-  text: '03:25',
+  text: '00:00',
   fontSize: 15,
   color: 'red',
   textAlign: 'center'
