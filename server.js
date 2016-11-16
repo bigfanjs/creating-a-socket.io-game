@@ -5,7 +5,7 @@ const
   path = require('path'),
   express = require('express');
 
-const spotDiff = require('./lib/spot-diff');
+const spotDiff = require('./app/spot-diff');
 
 const
   app = express(),
