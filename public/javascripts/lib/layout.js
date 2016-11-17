@@ -1,11 +1,13 @@
+import bind  from 'lodash/bind';
+
 const assign = Object.assign;
 
 export default {
-  setup: function ( canvas, options ) {
+  setup: function ( canvas, drawings, options ) {
     const layout = Object.create( this );
 
     layout.options = options;
-    assign(layout, options, { canvas });
+    assign(layout, options, { canvas, drawings });
 
     return layout;
   },
@@ -23,13 +25,18 @@ export default {
   show: function ( View ) {
     const
       options = assign({}, this.options, this.region),
-      view = View( options ),
-      ctx = this.canvas.getContext('2d');
+      view = View( options );
 
     if (Array.isArray( view )) {
-      view.forEach(v => { v.draw( ctx ); });
+      view.forEach(v => {
+        if ( v.draw ) {
+          this.drawings.push(bind(v.draw, v));
+        }
+      });
     } else {
-      view.draw( ctx );
+      if ( view.draw ) {
+        this.drawings.push(bind(view.draw, view));
+      }
     }
   }
 };

@@ -23,6 +23,7 @@ window.requestAnimFrame =
 
 const
   assign = Object.assign,
+  drawings = [],
   actions = [];
 
 function load( callback ) {
@@ -38,7 +39,7 @@ function load( callback ) {
 }
 
 export default {
-  init( canvas, socket, options ) {
+  init(canvas, socket, options) {
     const
       ctx = canvas.getContext('2d'),
       id = socket.id,
@@ -48,23 +49,27 @@ export default {
 
     load().then(function ( image ) {
       const
-        layout = GameLayout(canvas, options),
-        infoBar = InfoBar(canvas, options);
+        layout = GameLayout(canvas, drawings, options),
+        infoBar = InfoBar(canvas, drawings, options);
 
-      const clickAction = click(canvas, actions);
+      layout.getRegion('infoBar').show( InfoBar );
+      layout.getRegion('players').show( players );
+      layout.getRegion('picture').show(picture.bind(null, image));
+      layout.getRegion('centerBar').show( centerBar );
+
+      infoBar.getRegion('clicks').show( clicks );
+      infoBar.getRegion('timeLeft').show( timeLeft );
+      infoBar.getRegion('score').show( score );
+      infoBar.getRegion('player').show( player );
+
+      const clickAction = click(canvas, socket, actions);
 
       const gameLoop = function gameLoop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        layout.getRegion('infoBar').show( InfoBar );
-        layout.getRegion('players').show( players );
-        layout.getRegion('picture').show(picture.bind(null, image));
-        layout.getRegion('centerBar').show( centerBar );
-
-        infoBar.getRegion('clicks').show( clicks );
-        infoBar.getRegion('timeLeft').show( timeLeft );
-        infoBar.getRegion('score').show( score );
-        infoBar.getRegion('player').show( player );
+        drawings.forEach(drawing => {
+          drawing( ctx );
+        });
 
         actions.forEach(action => {
           if (action.opacity <= 0) {
