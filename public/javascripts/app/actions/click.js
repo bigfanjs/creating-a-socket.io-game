@@ -2,7 +2,7 @@ import Body from '../../lib/body';
 
 const mouse = {x: 0, y: 0};
 
-export default function ( canvas, actions ) {
+export default function ( canvas, socket, actions ) {
   canvas.addEventListener('click', function ( e ) {
     const
       circle = Body.setup({
@@ -20,5 +20,7 @@ export default function ( canvas, actions ) {
     circle.setPos( mouse );
 
     actions.push( circle );
+
+    socket.emit('click');
   }, false);
 }
