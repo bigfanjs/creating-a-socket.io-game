@@ -15,10 +15,8 @@ module.exports =  function ( server ) {
   const io = socketio.listen( server );
 
   io.on('connection', function ( socket ) {
-
     handleUserlogin(socket, io, players);
     handleUserClicks(socket);
     handleGameStart(socket);
-
   });
 };
