@@ -65,7 +65,8 @@ module.exports =  function handleUserlogin( socket, io, players ) {
       if ( group.players.length === Number( group.amount ) ) {
         io.to( group.name ).emit('start', {
           amount: group.amount,
-          players: group.players
+          players: group.players,
+          path: 'images/one.jpg'
         });
         groups.splice( groups.indexOf( group ), 1 );
 
