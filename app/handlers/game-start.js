@@ -17,6 +17,7 @@ module.exports = function gameStartHandler( socket ) {
 
       if ( timeLeft <= 0 ) {
         clearTimeout(timeout);
+        socket.removeAllListeners();
         socket.emit('game-over');
       }
     })();
