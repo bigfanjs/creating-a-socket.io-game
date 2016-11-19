@@ -26,14 +26,14 @@ const
   drawings = [],
   actions = [];
 
-function load( callback ) {
+function load( path ) {
   const image = new Image();
-
-  image.src = 'images/one.jpg';
 
   const promise = new Promise(( res, rej ) => {
     image.onload = () => { res( image ); };
   });
+
+  image.src = path;
 
   return promise;
 }
@@ -47,7 +47,7 @@ export default {
 
     options.name = p.name;
 
-    load().then(function ( image ) {
+    load(options.path).then(function ( image ) {
       const
         layout = GameLayout(canvas, drawings, options),
         infoBar = InfoBar(canvas, drawings, options);
