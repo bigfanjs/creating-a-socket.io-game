@@ -7,6 +7,39 @@ const
 
 const spotDiff = require('./app/spot-diff');
 
+const players = [
+  { name: 'Adel',
+    password: '12345',
+    email: 'adeljs@gmail.com',
+    level: 4,
+    score: 102,
+    diffs: 134,
+    wins: 45,
+    looses: 7,
+    games: 53,
+    rancking: 6 },
+  { name: 'Bob',
+    password: 'abcdef',
+    email: 'bobjs@gmail.com',
+    level: 1,
+    score: 74,
+    diffs: 56,
+    wins: 65,
+    looses: 15,
+    games: 80,
+    rancking: 47 },
+  { name: 'John',
+    password: '54321',
+    email: 'johnny@gmail.com',
+    level: 6,
+    score: 245,
+    diffs: 371,
+    wins: 213,
+    looses: 11,
+    games: 224,
+    rancking: 2 }
+];
+
 const
   app = express(),
   server = http.createServer( app );
