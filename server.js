@@ -46,8 +46,11 @@ const
 
 // routes:
 const
-  login = require('./routes/login'),
-  pictures = require('./routes/pictures');
+  login = require('./routes/user-login'),
+  adminLogin = require('./routes/admin-login'),
+  pictures = require('./routes/pictures'),
+  profile = require('./routes/profile'),
+  register = require('./routes/register');
 
 app.set('view engine', 'pug');
 
@@ -59,9 +62,20 @@ app.post('/api/pictures', pictures.createPicture);
 app.put('/api/pictures/:id', pictures.updatePicture);
 app.delete('/api/pictures/:id', pictures.deletePicture);
 
-app.get('/admin/login', login.form);
-app.post('/admin/login', login.submit);
-app.get('/admin/logout', login.logout);
+app.get('/login', login.form);
+app.post('/login', login.submit);
+app.get('/logout', login.logout);
+
+app.get('/signup', register.form);
+app.post('/signup', register.submit);
+
+app.get('/profile', profile.view);
+app.get('/profile/edit/', profile.edit);
+app.get('/profile/delete/:id', profile.delete);
+
+app.get('/admin/login', adminLogin.form);
+app.post('/admin/login', adminLogin.submit);
+app.get('/admin/logout', adminLogin.logout);
 
 server.listen(3000, function () {
   console.log('listening on port 3000');
