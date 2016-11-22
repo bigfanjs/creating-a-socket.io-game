@@ -69,7 +69,7 @@ app.get('/logout', login.logout);
 app.get('/signup', register.form);
 app.post('/signup', register.submit);
 
-app.get('/profile', profile.view);
+app.get('/profile/:id', profile.view);
 app.get('/profile/edit/:id', profile.form);
 app.put('/profile/edit/:id', profile.edit);
 app.delete('/profile/delete/:id', profile.remove);
