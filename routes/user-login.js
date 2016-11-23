@@ -1,6 +1,9 @@
 'use strict';
 
-const User = require('../lib/user');
+const
+  PlayerModel = require('../models').User,
+  User = require('../lib/user'),
+  player = User.create({Model: PlayerModel});
 
 exports.form = function (req, res, next) {
   res.render('admin-login', { title: 'Login' });
@@ -9,7 +12,7 @@ exports.form = function (req, res, next) {
 exports.submit = function (req, res, next) {
   const { name, pass } = req.body;
 
-  User.authenticate(name, pass, (err, user) => {
+  player.authenticate(name, pass, (err, user) => {
     if ( err ) return next( err );
 
     if ( user ) {
