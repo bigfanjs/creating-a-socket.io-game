@@ -72,7 +72,7 @@ app.post('/signup', register.submit);
 app.get('/profile/:id', profile.view);
 app.get('/profile/edit/:id', profile.form);
 app.put('/profile/edit/:id', profile.edit);
-app.delete('/profile/delete/:id', profile.remove);
+app.delete('/profile/:id', profile.remove);
 
 app.get('/admin/login', adminLogin.form);
 app.post('/admin/login', adminLogin.submit);
