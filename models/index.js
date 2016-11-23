@@ -6,7 +6,7 @@ const
   db = mongoose.connect( config.db );
 
 module.exports = {
-  admin: require('./admin')(mongoose, db),
-  user: require('./user')(mongoose, db),
-  picture: require('./picture')(mongoose, db)
+  Admin: require('./admin')(mongoose, db),
+  User: require('./user')(mongoose, db),
+  Picture: require('./picture')(mongoose, db)
 };
