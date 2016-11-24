@@ -1,0 +1,31 @@
+'use strict';
+
+exports.form = function (req, res, next) {
+  res.render('login', {title: 'Login'});
+};
+
+exports.submit = function (req, res, next) {
+  const
+    someone = req.user,
+    { name, pass } = req.body;
+
+  someone.authenticate(name, pass, (err, user) => {
+    if ( err ) return next( err );
+
+    if ( user ) {
+      req.session.uid = user._id;
+      res.redirect( req.success );
+    } else {
+      req.error('Sorry, invalid credantials!');
+      res.redirect( req.failure );
+    }
+  });
+};
+
+exports.logout = function (req, res, next) {
+  req.session.destroy(err => {
+    if ( err ) return next( err );
+
+    res.redirect('/login');
+  });
+};
