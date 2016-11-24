@@ -10,7 +10,9 @@ export default function () {
     return gulp.src([
       'server.js',
       'lib/**/*.js',
-      'app/**/*.js'
+      'app/**/*.js',
+      'models/**/*.js',
+      'routes/**/*.js'
       ], { base: '.' })
       // .pipe(sourcemasps.init())
       //   .pipe(babel({

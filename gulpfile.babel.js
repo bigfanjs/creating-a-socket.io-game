@@ -5,7 +5,7 @@ import runSequence from 'run-sequence';
 
 import bundle from './tasks/bundle';
 import nodeBabel from './tasks/node-babel';
-import browserSync from './tasks/browser-sync';
+// import browserSync from './tasks/browser-sync';
 import nodemon from './tasks/nodemon';
 import testBrowser from './tasks/test-browser';
 import testNode from './tasks/test-node';
