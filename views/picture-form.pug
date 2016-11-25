@@ -1,0 +1,8 @@
+extends layout.pug
+
+block contents
+  form(method="post" action="/")
+    .form-group
+      label(for="clicks") Clicks:
+      input#clicks.form-control(type="text" value="0")
+    .form-group
