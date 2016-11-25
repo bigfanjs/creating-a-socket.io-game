@@ -85,12 +85,6 @@ app.use('/admin/login', adminMiddleware.provideAdmin());
 app.use('/profile', userMiddleware.isAuthenticated());
 app.use('/admin/pictures/', adminMiddleware.isAuthenticated());
 
-app.get('/api/pictures', pictures.showPictures);
-app.get('/api/pictures/:id', pictures.viewPicture);
-app.post('/api/pictures', pictures.createPicture);
-app.put('/api/pictures/:id', pictures.updatePicture);
-app.delete('/api/pictures/:id', pictures.deletePicture);
-
 app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
@@ -108,10 +102,12 @@ app.post('/admin/login', adminLogin.submit);
 app.get('/admin/logout', adminLogin.logout);
 
 app.get('/admin/pictures', pictures.showPictures);
-app.get('/admin/pictures/:id', pictures.viewPicture);
-app.post('/admin/pictures', pictures.createPicture);
-app.put('/admin/pictures/:id', pictures.updatePicture);
-app.delete('/admin/pictures/:id', pictures.deletePicture);
+app.get('/admin/pictures/view/:id', pictures.viewPicture);
+app.get('/admin/pictures/new', pictures.form);
+app.post('/admin/pictures/new', pictures.createPicture);
+app.get('/admin/pictures/edit/:id', pictures.form);
+app.put('/admin/pictures/edit/:id', pictures.updatePicture);
+app.delete('/admin/pictures/view/:id', pictures.deletePicture);
 
 server.listen(3000, function () {
   console.log('listening on port 3000');
