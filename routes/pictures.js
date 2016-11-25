@@ -1,23 +1,38 @@
 'use strict';
 
-const Picture = require('../models/').picture;
+const Picture = require('../models/').Picture;
 
 exports.showPictures = function (req, res, next) {
-  Picture.find((err, movies) => {
+  Picture.find((err, pictures) => {
     if ( err ) return next( err );
 
-    res.json( movies );
+    res.render('pictures', { pictures });
   });
 };
 
+exports.form = function (req, res, next) {
+  const id = req.prams.id;
+
+  if ( id ) {
+    Picture.findOne({ _id: id }, (err, picture) => {
+      if ( err ) return next( err );
+
+      res.render('picture-form', { picture });
+    });
+  } else {
+    res.render('picture-form');
+  }
+
+};
+
 exports.viewPicture = function (req, res, next) {
-  Picture.find({ _id: req.params.id }, (err, movie) => {
+  Picture.find({ _id: req.params.id }, (err, picture) => {
     if ( err ) {
       res.status( 404 ).json('Not Found!');
       return next( err );
     }
 
-    res.json( movie );
+    res.render('picture', { picture });
   });
 };
 
