@@ -16,7 +16,7 @@ const
   userMiddleware = require('./lib/middleware/user'),
   adminMiddleware = require('./lib/middleware/admin');
 
-const spotDiff = require('./app/spot-diff');
+// const spotDiff = require('./app/spot-diff');
 
 const players = [
   { name: 'Adel',
@@ -82,8 +82,8 @@ app.use(express.static(path.join(__dirname, './public')));
 // adding built-in middleware to the stack:
 app.use('/login', userMiddleware.provideUser());
 app.use('/admin/login', adminMiddleware.provideAdmin());
-app.use('/api/picture/', userMiddleware.isAuthenticated());
-app.use('/admin/picture/', adminMiddleware.isAuthenticated());
+app.use('/profile', userMiddleware.isAuthenticated());
+app.use('/admin/pictures/', adminMiddleware.isAuthenticated());
 
 app.get('/api/pictures', pictures.showPictures);
 app.get('/api/pictures/:id', pictures.viewPicture);
@@ -107,8 +107,14 @@ app.get('/admin/login', adminLogin.form);
 app.post('/admin/login', adminLogin.submit);
 app.get('/admin/logout', adminLogin.logout);
 
+app.get('/admin/pictures', pictures.showPictures);
+app.get('/admin/pictures/:id', pictures.viewPicture);
+app.post('/admin/pictures', pictures.createPicture);
+app.put('/admin/pictures/:id', pictures.updatePicture);
+app.delete('/admin/pictures/:id', pictures.deletePicture);
+
 server.listen(3000, function () {
   console.log('listening on port 3000');
 });
 
-spotDiff( server );
+// spotDiff( server );
