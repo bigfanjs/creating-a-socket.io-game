@@ -6,10 +6,10 @@ exports.form = function (req, res, next) {
 
 exports.submit = function (req, res, next) {
   const
-    someone = req.user,
+    logger = req.user || req.admin,
     { name, pass } = req.body;
 
-  someone.authenticate(name, pass, (err, user) => {
+  logger.authenticate(name, pass, (err, user) => {
     if ( err ) return next( err );
 
     if ( user ) {
