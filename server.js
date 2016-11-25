@@ -1,9 +1,20 @@
 'use strict';
 
+// requiring third-party modules:
 const
   http = require('http'),
   path = require('path'),
-  express = require('express');
+  express = require('express'),
+  logger = require('morgan'),
+  bodyParser = require('body-parser'),
+  cookieParser = require('cookie-parser'),
+  methodOverride = require('method-override'),
+  session = require('express-session');
+
+// requiring built-in modules:
+const
+  userMiddleware = require('./lib/middleware/user'),
+  adminMiddleware = require('./lib/middleware/admin');
 
 const spotDiff = require('./app/spot-diff');
 
@@ -52,9 +63,27 @@ const
   profile = require('./routes/profile'),
   register = require('./routes/register');
 
+// configuring express:
 app.set('view engine', 'pug');
+app.set('views', path.resolve(__dirname, './views'));
 
+// adding third-party middleware to the stack:
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride());
+app.use(cookieParser('my secret code'));
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'my secret code'
+}));
 app.use(express.static(path.join(__dirname, './public')));
+
+// adding built-in middleware to the stack:
+app.use('/login', userMiddleware.provideUser());
+app.use('/admin/login', adminMiddleware.provideAdmin());
+app.use('/api/picture/', userMiddleware.isAuthenticated());
+app.use('/admin/picture/', adminMiddleware.isAuthenticated());
 
 app.get('/api/pictures', pictures.showPictures);
 app.get('/api/pictures/:id', pictures.viewPicture);
