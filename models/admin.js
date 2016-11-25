@@ -6,5 +6,5 @@ module.exports = function ( mongoose, db ) {
     password: String
   });
 
-  db.model('admin', schema);
+  return db.model('admin', schema);
 };
