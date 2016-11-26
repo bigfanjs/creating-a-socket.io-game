@@ -9,7 +9,8 @@ const
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
-  session = require('express-session');
+  session = require('express-session'),
+  flash = require('connect-flash');
 
 // requiring built-in modules:
 const
@@ -76,6 +77,7 @@ app.use(session({
   saveUninitialized: false,
   secret: 'my secret code'
 }));
+app.use(flash());
 app.use(express.static(path.join(__dirname, './public')));
 
 // adding built-in middleware to the stack:
