@@ -1,0 +1,12 @@
+extends layout.pug
+
+block contents
+  .well
+    form(method="POST" action="/register")
+      .form-group
+        label(for="username") Username:
+        input.form-control#username(type="text")
+      .form-group
+        label(for="password") Password:
+        input.form-control#password(type="password")
+      input.btn.btn-primary(type="submit" value ="Sign Up")
