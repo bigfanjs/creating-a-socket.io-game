@@ -7,9 +7,9 @@ exports.form = function (req, res, next) {
 exports.submit = function (req, res, next) {
   const
     logger = req.user || req.admin,
-    { name, pass } = req.body;
+    body = req.body;
 
-  logger.authenticate(name, pass, (err, user) => {
+  logger.authenticate(body.name, body.pass, (err, user) => {
     if ( err ) return next( err );
 
     if ( user ) {
