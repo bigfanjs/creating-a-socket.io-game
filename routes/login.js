@@ -1,6 +1,7 @@
 'use strict';
 
 exports.form = function (req, res, next) {
+  console.log('Good!');
   res.render('login', {msg: req.flash('error'), title: 'Login'});
 };
 
@@ -16,7 +17,7 @@ exports.submit = function (req, res, next) {
       req.session.uid = user._id;
       res.redirect( req.success );
     } else {
-      req.flash('error', {type: 'danger', msg: 'Sorry, invalid credantials!'});
+      req.flash('error', {type: 'danger', text: 'Sorry, invalid credantials!'});
       res.redirect( req.failure );
     }
   });
