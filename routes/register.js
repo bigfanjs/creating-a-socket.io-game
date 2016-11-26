@@ -3,7 +3,7 @@
 const User = require('../models/user');
 
 exports.form = function (req, res, next) {
-  res.render('sign-up', {title: 'Sign up'});
+  res.render('sign-up', {title: 'Sign up', msg: req.flash('error')});
 };
 
 exports.signup = function (req, res, next) {
@@ -13,7 +13,7 @@ exports.signup = function (req, res, next) {
     if ( err ) return next( err );
 
     if (user._id) {
-      req.flash('error', {type: 'danger', msg: 'Username has already taken!'});
+      req.flash('error', {type: 'danger', text: 'Username has already taken!'});
       res.redirect('back');
     } else {
       User.create(someone, (err, user) => {
