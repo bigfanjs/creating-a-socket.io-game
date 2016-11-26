@@ -57,8 +57,7 @@ const
 
 // routes:
 const
-  login = require('./routes/user-login'),
-  adminLogin = require('./routes/admin-login'),
+  login = require('./routes/login'),
   pictures = require('./routes/pictures'),
   profile = require('./routes/profile'),
   register = require('./routes/register');
@@ -90,16 +89,16 @@ app.post('/login', login.submit);
 app.get('/logout', login.logout);
 
 app.get('/signup', register.form);
-app.post('/signup', register.submit);
+app.post('/signup', register.signup);
 
 app.get('/profile/:id', profile.view);
 app.get('/profile/edit/:id', profile.form);
 app.put('/profile/edit/:id', profile.edit);
 app.delete('/profile/:id', profile.remove);
 
-app.get('/admin/login', adminLogin.form);
-app.post('/admin/login', adminLogin.submit);
-app.get('/admin/logout', adminLogin.logout);
+app.get('/admin/login', login.form);
+app.post('/admin/login', login.submit);
+app.get('/admin/logout', login.logout);
 
 app.get('/admin/pictures', pictures.showPictures);
 app.get('/admin/pictures/view/:id', pictures.viewPicture);
