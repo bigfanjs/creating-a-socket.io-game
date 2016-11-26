@@ -12,8 +12,8 @@ exports.signup = function (req, res, next) {
   User.findOne({ name: someone.name }, (err, user) => {
     if ( err ) return next( err );
 
-    if ( user._id ) {
-      res.error('Username has already takem!');
+    if (user._id) {
+      req.flash('error', {type: 'danger', msg: 'Username has already taken!'});
       res.redirect('back');
     } else {
       User.create(someone, (err, user) => {
