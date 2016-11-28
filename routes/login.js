@@ -1,7 +1,6 @@
 'use strict';
 
 exports.form = function (req, res, next) {
-  console.log('Good!');
   res.render('login', {msg: req.flash('error'), title: 'Login'});
 };
 
