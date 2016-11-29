@@ -9,7 +9,7 @@ exports.submit = function (req, res, next) {
     logger = req.user || req.admin,
     body = req.body;
 
-  logger.authenticate(body.name, body.pass, (err, user) => {
+  logger.authenticate(body.username, body.password, (err, user) => {
     if ( err ) return next( err );
 
     if ( user ) {
