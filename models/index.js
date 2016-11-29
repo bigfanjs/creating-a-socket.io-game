@@ -3,7 +3,7 @@
 const
   config = require('../config'),
   mongoose = require('mongoose'),
-  db = mongoose.connect(config.database.uri);
+  db = mongoose.connect( config.database.uri );
 
 module.exports = {
   Admin: require('./admin')(mongoose, db),
