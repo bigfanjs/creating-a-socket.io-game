@@ -2,7 +2,7 @@ module.exports = {
   env: 'development',
   url: 'http://spotty.com',
   database: {
-    uri: 'mongodb://127.0.0.1/spot-diff-game'
+    uri: 'mongodb://127.0.0.1/spotty'
   },
   server: {
     host: '127.0.0.1',
