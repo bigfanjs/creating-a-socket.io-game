@@ -16,7 +16,7 @@ exports.submit = function (req, res, next) {
       req.session.uid = user._id;
       res.redirect( req.success );
     } else {
-      req.flash('error', {type: 'danger', text: 'Sorry, invalid credantials!'});
+      req.flash('error', 'Sorry, invalid credantials!');
       res.redirect( req.failure );
     }
   });
