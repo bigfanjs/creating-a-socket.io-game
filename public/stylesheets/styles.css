@@ -18,3 +18,8 @@ a {
   transform: translate(-50%, -50%);
   border: 1px dashed;
 }
+
+.options-bar {
+  text-align: center;
+  margin-bottom: 30px;
+}
