@@ -1,22 +1,22 @@
 'use strict';
 
-const User = require('../models/user');
+const User = require('../models/')('user');
 
 exports.form = function (req, res, next) {
   res.render('sign-up', {title: 'Sign up', msg: req.flash('error')});
 };
 
 exports.signup = function (req, res, next) {
-  const someone = req.body;
+  const body = req.body;
 
-  User.findOne({ name: someone.name }, (err, user) => {
+  User.findOne({ name: body.name }, (err, user) => {
     if ( err ) return next( err );
 
-    if (user._id) {
-      req.flash('error', {type: 'danger', text: 'Username has already taken!'});
+    if (user !== null && user._id) {
+      req.flash('error', 'Username has already taken!');
       res.redirect('back');
     } else {
-      User.create(someone, (err, user) => {
+      User.create(body, (err, user) => {
         if ( err ) return next( err );
 
         req.session.uid = user._id;
