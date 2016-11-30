@@ -1,0 +1,17 @@
+extends layout.jade
+
+block contents
+  .row
+    .col-lg-6.col-lg-offset-3
+      .well
+        form(method="POST")
+          div(class="form-group #{msg.length ? 'has-error' : ''}")
+            label.control-label(for="username") Username
+            input#username.form-control(type="text" name="username")
+          div.form-group(class="#{msg.length ? 'has-error' : ''}")
+            label.control-label(for="password") Password
+            input#password.form-control(type="password" name="password")
+            br
+            if ( msg )
+              span.text-danger= msg
+          input.btn.btn-primary(type="submit" value="Login")
