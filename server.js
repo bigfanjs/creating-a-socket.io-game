@@ -17,7 +17,7 @@ const
   userMiddleware = require('./lib/middleware/user'),
   adminMiddleware = require('./lib/middleware/admin');
 
-// const spotDiff = require('./app/spot-diff');
+const spotDiff = require('./app/spot-diff');
 
 const players = [
   { name: 'Adel',
@@ -64,7 +64,7 @@ const
   register = require('./routes/register');
 
 // configuring express:
-app.set('view engine', 'pug');
+app.set('view engine', 'jade');
 app.set('views', path.resolve(__dirname, './views'));
 
 // adding third-party middleware to the stack:
@@ -90,6 +90,10 @@ app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
 
+app.get('/admin/login', login.form);
+app.post('/admin/login', login.submit);
+app.get('/admin/logout', login.logout);
+
 app.get('/signup', register.form);
 app.post('/signup', register.signup);
 
@@ -102,6 +106,13 @@ app.get('/admin/login', login.form);
 app.post('/admin/login', login.submit);
 app.get('/admin/logout', login.logout);
 
+app.get('/admin', function (req, res) {
+  if (adminMiddleware.isAuthenticated()) {
+    res.redirect('/admin/pictures');
+  } else {
+    res.redirect('/admin/login');
+  }
+});
 app.get('/admin/pictures', pictures.showPictures);
 app.get('/admin/pictures/view/:id', pictures.viewPicture);
 app.get('/admin/pictures/new', pictures.form);
@@ -114,4 +125,4 @@ server.listen(3000, function () {
   console.log('listening on port 3000');
 });
 
-// spotDiff( server );
+spotDiff( server );
