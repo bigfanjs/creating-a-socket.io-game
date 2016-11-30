@@ -23,3 +23,12 @@ a {
   text-align: center;
   margin-bottom: 30px;
 }
+
+#sign-up {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.well {
+  overflow: hidden;
+}

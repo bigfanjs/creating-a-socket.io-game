@@ -15,3 +15,5 @@ block contents
             if ( msg )
               span.text-danger= msg
           input.btn.btn-primary(type="submit" value="Login")
+        if ( user )
+          span.col-xs-12#sign-up: a(href="/signup") Not a user? Sign up.
