@@ -2,18 +2,20 @@ extends layout.jade
 
 block contents
   .col-xs-12
-    button.btn.btn-lg.btn-success Create A New Picture
-  table.table.table-striped
-    tr
-      th picture
-      th diffs
-      th games
-      th clicks
-      th time
-    each picture in pictures
-      tr
-        td: img(src="#{ picture.image.path }")
-        td picture.diffs
-        td picture.games
-        td picture.clicks
-        td picture.time
+    .row
+      button.btn.btn-lg.btn-success Create A New Picture
+    .row
+      table.table.table-striped
+        tr
+          th picture
+          th diffs
+          th games
+          th clicks
+          th time
+        each picture in pictures
+          tr
+            td: img(src="#{ picture.image.path }")
+            td picture.diffs
+            td picture.games
+            td picture.clicks
+            td picture.time
