@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -24,6 +23,11 @@ a {
   margin-bottom: 30px;
 }
 
+.start-play {
+  text-align: center;
+  margin-top: 50px;
+}
+
 #sign-up {
   margin-top: 10px;
   text-align: center;
@@ -31,4 +35,9 @@ a {
 
 .well {
   overflow: hidden;
+}
+
+#player-info {
+  background-color: #525252;
+  color: #fff;
 }
