@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('../models/')('user');
+const User = require('../models/').User;
 
 exports.form = function (req, res, next) {
   res.render('sign-up', {title: 'Sign up', msg: req.flash('error')});
