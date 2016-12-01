@@ -5,8 +5,10 @@ block contents
     form(method="POST" action="/signup")
       .form-group
         label(for="username") Username:
-        input.form-control#username(type="text")
+        input.form-control#username(type="text" name="username")
+        if ( msg )
+          span.text-error= msg
       .form-group
         label(for="password") Password:
-        input.form-control#password(type="password")
+        input.form-control#password(type="password" name="password")
       input.btn.btn-primary(type="submit" value ="Sign Up")
