@@ -1,6 +1,7 @@
 'use strict';
 
-const User = require('../models/').User;
+const UserModel = require('../models/').User;
+const User = require('../lib/user');
 
 exports.form = function (req, res, next) {
   res.render('sign-up', {title: 'Sign up', msg: req.flash('error')});
@@ -16,8 +17,12 @@ exports.signup = function (req, res, next) {
       req.flash('error', 'Username has already taken!');
       res.redirect('back');
     } else {
-      User.create(body, (err, user) => {
-        if ( err ) return next( err );
+      User.create({
+        username: body.username,
+        password: body.password,
+        Model: UserModel
+      }).save((err, user) => {
+        if ( err ) { return next( err ); }
 
         req.session.uid = user._id;
         res.redirect('/profile/:' + user._id);
