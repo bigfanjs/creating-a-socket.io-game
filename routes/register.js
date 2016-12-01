@@ -10,7 +10,7 @@ exports.form = function (req, res, next) {
 exports.signup = function (req, res, next) {
   const body = req.body;
 
-  User.findOne({ name: body.name }, (err, user) => {
+  UserModel.findOne({ name: body.name }, (err, user) => {
     if ( err ) return next( err );
 
     if (user !== null && user._id) {
@@ -18,7 +18,7 @@ exports.signup = function (req, res, next) {
       res.redirect('back');
     } else {
       User.create({
-        username: body.username,
+        name: body.username,
         password: body.password,
         Model: UserModel
       }).save((err, user) => {
