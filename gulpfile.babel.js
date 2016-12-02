@@ -13,6 +13,7 @@ import clean from './tasks/clean';
 import htmlMin from './tasks/html-min';
 import cssMin from './tasks/css-min';
 import imageMin from './tasks/image-min';
+import fontsCopy from './tasks/fonts-copy';
 
 gulp.task('bundle', bundle());
 gulp.task('node-babel', nodeBabel());
@@ -24,11 +25,13 @@ gulp.task('clean', clean());
 gulp.task('html-min', htmlMin());
 gulp.task('css-min', cssMin());
 gulp.task('image-min', imageMin());
+gulp.task('fonts-copy', fontsCopy());
 
-gulp.task('watch', ['html-min', 'css-min', 'image-min'], function () {
+gulp.task('watch', ['html-min', 'css-min', 'image-min', 'fonts-copy'], function () {
   gulp.watch('public/*.html', ['html-min']);
   gulp.watch('public/stylesheets/**/*.css', ['css-min']);
   gulp.watch('public/images/**/*.{jpg,png,gif,svg}', ['image-min']);
+  gulp.watch('public/fonts/*', ['fonts-copy']);
 });
 
 gulp.task('default', cb => {

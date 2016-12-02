@@ -12,7 +12,9 @@ export default function () {
       'lib/**/*.js',
       'app/**/*.js',
       'models/**/*.js',
-      'routes/**/*.js'
+      'routes/**/*.js',
+      'config/**/*.js',
+      'views/**/*.jade'
       ], { base: '.' })
       // .pipe(sourcemasps.init())
       //   .pipe(babel({
