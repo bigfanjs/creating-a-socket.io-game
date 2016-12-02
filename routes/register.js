@@ -20,7 +20,25 @@ exports.signup = function (req, res, next) {
       User.create({
         name: body.username,
         password: body.password,
-        Model: UserModel
+        Model: UserModel,
+
+        //-- temparry ----------
+        score: 37,
+        level: 5,
+        avatar: {
+          name: 'pic',
+          path: '/images/6qwi93.jpg'
+        },
+        birthday: '1995/10/30',
+        email: 'example@email.com',
+        website: 'example.com',
+        social: {
+          facebook: 'jonnyhany',
+          twitter: '@jonnyhany',
+          google: 'jonnyhany',
+          github: 'jonnyhany'
+        }
+        //---------------
       }).save((err, user) => {
         if ( err ) { return next( err ); }
 
