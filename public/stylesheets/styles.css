@@ -37,44 +37,23 @@ a {
   overflow: hidden;
 }
 
-#player-info {
-  background-color: #525252;
-  color: #fff;
-}
-
-.glyphicon {
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-
-small {
-  display: block;
-  line-height: 1.428571429;
-  color: #999;
-}
-
-ul.social-networks {
-  list-style: none;
-  padding: 0px;
+.panel-heading {
+  background-color: brown;
   margin-bottom: 0;
 }
 
-ul.social-networks li {
-  color: black;
-  position: relative;
-  display: inline-block;
-  font-size: 1.1em;
-  margin-left: 5px;
+.panel-body {
+  background-color: aquamarine;
 }
 
-ul.social-networks li:first-child {
-  margin-left: 0;
-}
-
-ul.social-networks a {
-  color: black;
-}
-
-ul.user-info {
+#player-info {
   list-style: none;
+  padding: 0;
+  font-size: 16px;
+  font-family: monospace;
+}
+
+#player-avatar {
+  padding: 10px 0;
+  background-color: #72e3bd;
 }
