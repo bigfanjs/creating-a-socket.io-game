@@ -18,7 +18,11 @@ export default function () {
       watch: [
         'server.js',
         'lib/**/*.js',
-        'app/**/*.js'
+        'app/**/*.js',
+        'routes/**/*.js',
+        'models/**/*.js',
+        'config/**/*.js',
+        'views/**/*.jade',
       ]
     })
     .on('start', function () {
