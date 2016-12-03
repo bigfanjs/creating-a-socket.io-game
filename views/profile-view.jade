@@ -3,36 +3,37 @@ extends layout.jade
 block contents
   .container
     .row
-      .col-xs-12.col-sm-sm.col-md-6
-        .well.well-sm
-          .row
-            .col-sm-6.col-md-4
-              img.img-rouded.img-responsive(src="#{ user.avatar.path }" alt="")
-            .col-sm-6.col-md-8
-              h4= user.name
-              small
-                cite(title="#{ user.location }")= user.location
-                  i.glyphicon.glyphicon-map-maker
-              ul.user-info
-                li
-                  p= user.email
-                  i.glyphicon.glyphicon-envelope
-                li
-                  p= user.website
-                  i.glyphicon.glyphicon-globe
-                li
-                  p= user.birthday
-                  i.glyphicon.glyphicon-gift
-              ul.social-networks
-                li.facebook-icon
-                  a(href="#{ user.social.facebook }" title="facebook")
-                    i.fa.fa-facebook
-                li.twitter-icon
-                  a(href="#{ user.social.twitter }" title="twitter")
-                    i.fa.fa-twitter
-                li.google-icon
-                  a(href="#{ user.social.google }" title="google")
-                    i.fa.fa-google
-                li.github-icon
-                  a(href="#{ user.social.github }" title="github")
-                    i.fa.fa-github
+      .col-xs-12.col-sm-9.col-md-3
+        .panel.panel-heading
+          h1 Player Info
+        .panel.panel-body
+          .row#player-avatar
+            .col-xs-6
+              img.img-responsive(src="#{ user.avatar.path }")  
+            .col-xs-6
+              h2= user.name
+          br
+          ul#player-info
+            li
+              span Score
+              span.pull-right= user.score
+            li
+              span Level
+              span.pull-right= user.Lavel
+            li
+              span Found spots
+              span.pull-right= user.diffs
+            li
+              span Wins
+              span.pull-right= user.wins
+            li
+              span Looses
+              span.pull-right= user.looses
+            li
+              span Total Plays
+              span.pull-right= user.games
+            li
+              span World Ranking
+              span.pull-right= user.ranking
+          br
+          button.btn.btn-lg.btn-success Play
