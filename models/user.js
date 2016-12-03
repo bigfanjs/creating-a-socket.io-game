@@ -14,6 +14,7 @@ module.exports = function ( mongoose, db ) {
     ranking: Number,
     website: String,
     birthday: String,
+    location: String,
     social: {
       facebook: String,
       twitter: String,
