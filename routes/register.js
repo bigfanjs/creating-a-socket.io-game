@@ -25,6 +25,11 @@ exports.signup = function (req, res, next) {
         //-- temparry ----------
         score: 37,
         level: 5,
+        diffs: 45,
+        winds: 24,
+        looses: 12,
+        games: 23,
+        ranking: 245,
         avatar: {
           name: 'pic',
           path: '/images/6qwi93.jpg'
@@ -32,6 +37,7 @@ exports.signup = function (req, res, next) {
         birthday: '1995/10/30',
         email: 'example@email.com',
         website: 'example.com',
+        location: 'San Fransisco, USA',
         social: {
           facebook: 'jonnyhany',
           twitter: '@jonnyhany',
