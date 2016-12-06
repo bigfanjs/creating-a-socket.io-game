@@ -22,11 +22,11 @@ exports.signup = function (req, res, next) {
         password: body.password,
         Model: UserModel,
 
-        //-- temparry ----------
+        //-- temparary ----------
         score: 37,
         level: 5,
         diffs: 45,
-        winds: 24,
+        wins: 24,
         looses: 12,
         games: 23,
         ranking: 245,
@@ -49,7 +49,7 @@ exports.signup = function (req, res, next) {
         if ( err ) { return next( err ); }
 
         req.session.uid = user._id;
-        res.redirect('/profile/:' + user._id);
+        res.redirect('/profile/:' + user._id + '/view');
       });
     }
   });
