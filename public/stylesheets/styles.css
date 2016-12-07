@@ -37,13 +37,19 @@ a {
   overflow: hidden;
 }
 
+.panel {
+  border-radius: 0;
+}
+
 .panel-heading {
-  background-color: brown;
+  background-color: #414141;
   margin-bottom: 0;
+  color: #fff;
 }
 
 .panel-body {
-  background-color: aquamarine;
+  background-color: #7fffd4;
+  border: 6px solid #414141
 }
 
 #player-info {
@@ -56,4 +62,10 @@ a {
 #player-avatar {
   padding: 10px 0;
   background-color: #72e3bd;
+}
+
+#player-form {
+  width: 300px;
+  margin: auto;
+  margin-top: 30px; 
 }
