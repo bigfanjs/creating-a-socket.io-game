@@ -17,44 +17,11 @@ const
   userMiddleware = require('./lib/middleware/user'),
   adminMiddleware = require('./lib/middleware/admin');
 
-const spotDiff = require('./app/spot-diff');
-
-const players = [
-  { name: 'Adel',
-    password: '12345',
-    email: 'adeljs@gmail.com',
-    level: 4,
-    score: 102,
-    diffs: 134,
-    wins: 45,
-    looses: 7,
-    games: 53,
-    rancking: 6 },
-  { name: 'Bob',
-    password: 'abcdef',
-    email: 'bobjs@gmail.com',
-    level: 1,
-    score: 74,
-    diffs: 56,
-    wins: 65,
-    looses: 15,
-    games: 80,
-    rancking: 47 },
-  { name: 'John',
-    password: '54321',
-    email: 'johnny@gmail.com',
-    level: 6,
-    score: 245,
-    diffs: 371,
-    wins: 213,
-    looses: 11,
-    games: 224,
-    rancking: 2 }
-];
-
 const
+  spotDiff = require('./app/spot-diff'),
   app = express(),
-  server = http.createServer( app );
+  server = http.createServer( app ),
+  join = path.join;
 
 // routes:
 const
@@ -78,14 +45,24 @@ app.use(session({
   secret: 'my secret code'
 }));
 app.use(flash());
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(join(__dirname, 'public')));
 
 // adding built-in middleware to the stack:
 app.use('/login', userMiddleware.provideUser());
 app.use('/admin/login', adminMiddleware.provideAdmin());
 app.use('/profile', userMiddleware.isAuthenticated());
 app.use('/admin/pictures/', adminMiddleware.isAuthenticated());
+app.use('/profile/play', express.static(join(__dirname, './public')));
 
+app.get('/', (req, res, next) => {
+  const uid = req.session.uid;
+
+  if (uid) {
+    res.redirect('/profile/:' + uid);
+  } else {
+    res.redirect('/login');
+  }
+});
 app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
@@ -97,9 +74,10 @@ app.get('/admin/logout', login.logout);
 app.get('/signup', register.form);
 app.post('/signup', register.signup);
 
-app.get('/profile/:id', profile.view);
-app.get('/profile/edit/:id', profile.form);
-app.put('/profile/edit/:id', profile.edit);
+app.get('/profile/:id/view', profile.view);
+app.get('/profile/:id/edit', profile.form);
+app.get('/profile', profile.player);
+app.put('/profile/:id/edit/', profile.edit);
 app.delete('/profile/:id', profile.remove);
 
 app.get('/admin/login', login.form);
