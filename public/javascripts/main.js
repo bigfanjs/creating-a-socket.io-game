@@ -23,9 +23,12 @@ window.onload = function () {
 
   $('#player-form').submit(function ( event ) {
     event.preventDefault();
-    socket.emit('player', {
-      name: $('#name-input').val(),
-      playerNumbers: $('#players-num').val()
+    $.get('/profile', user => {
+      socket.emit('player', {
+        name: user.name,
+        avatar: user.avatar.path,
+        playerNumbers: $('#players-num').val()
+      });
     });
   });
 };
