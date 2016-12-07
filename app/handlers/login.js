@@ -81,12 +81,8 @@ module.exports =  function handleUserlogin( socket, io, players ) {
 
     io.to( group.name ).emit('players', {
       amount: amount,
-      players: group.players.map(obj => obj.name)
+      players: group.players.map(obj => obj.name),
+      avatar: player.avatar
     });
-
-    // socket.emit('loginResult', {
-    //   success: false,
-    //   message: 'name is already taken'
-    // });
   });
 };

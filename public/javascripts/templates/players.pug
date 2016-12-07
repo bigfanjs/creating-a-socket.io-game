@@ -7,6 +7,8 @@ table.table.table-striped.table-bordered
       else
         while ( i++ < (amount-1) )
           if players[ i ]
-            td= players[ i ]
+            td
+              img(src="#{ avatar }")
+              p= players[ i ]
           else
             td: img(src="./images/load.gif")
