@@ -57,7 +57,7 @@ app.get('/', (req, res, next) => {
   const uid = req.session.uid;
 
   if (uid) {
-    res.redirect('/profile/:' + uid);
+    res.redirect('/profile');
   } else {
     res.redirect('/login');
   }
@@ -73,12 +73,12 @@ app.get('/admin/logout', login.logout);
 app.get('/signup', register.form);
 app.post('/signup', register.signup);
 
-app.get('/profile/:id/view', profile.view);
-app.get('/profile/:id/edit', profile.form);
+app.get('/profile/view', profile.view);
+app.get('/profile/edit', profile.form);
 app.get('/profile', profile.player);
 app.get('/profile/play', profile.play);
-app.put('/profile/:id/edit/', profile.edit);
-app.delete('/profile/:id', profile.remove);
+app.put('/profile/edit/', profile.edit);
+app.delete('/profile', profile.remove);
 
 app.get('/admin/login', login.form);
 app.post('/admin/login', login.submit);
