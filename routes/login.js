@@ -14,7 +14,7 @@ exports.submit = function (req, res, next) {
 
     if ( user ) {
       req.session.uid = user._id;
-      res.redirect('/profile/:' + user._id + '/view');
+      res.redirect('/profile/view');
     } else {
       req.flash('error', 'Sorry, invalid credantials!');
       res.redirect( req.failure );
