@@ -45,14 +45,13 @@ app.use(session({
   secret: 'my secret code'
 }));
 app.use(flash());
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static(join(__dirname, './public')));
 
 // adding built-in middleware to the stack:
 app.use('/login', userMiddleware.provideUser());
 app.use('/admin/login', adminMiddleware.provideAdmin());
 app.use('/profile', userMiddleware.isAuthenticated());
 app.use('/admin/pictures/', adminMiddleware.isAuthenticated());
-app.use('/profile/play', express.static(join(__dirname, './public')));
 
 app.get('/', (req, res, next) => {
   const uid = req.session.uid;
@@ -77,6 +76,7 @@ app.post('/signup', register.signup);
 app.get('/profile/:id/view', profile.view);
 app.get('/profile/:id/edit', profile.form);
 app.get('/profile', profile.player);
+app.get('/profile/play', profile.play);
 app.put('/profile/:id/edit/', profile.edit);
 app.delete('/profile/:id', profile.remove);
 
