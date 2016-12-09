@@ -66,7 +66,7 @@ module.exports =  function handleUserlogin( socket, io, players ) {
         io.to( group.name ).emit('start', {
           amount: group.amount,
           players: group.players,
-          path: 'images/one.jpg'
+          path: '/images/one.jpg'
         });
         groups.splice( groups.indexOf( group ), 1 );
 
