@@ -18,7 +18,7 @@ exports.player = function (req, res, next) {
 
 exports.play = function (req, res) {
   res.sendFile('app.html', {
-    root: path.join(__dirname, './public')
+    root: path.join(__dirname, '../public')
   });
 };
 
