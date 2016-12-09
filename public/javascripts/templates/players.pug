@@ -3,7 +3,7 @@ table.table.table-striped.table-bordered
     tr
       - var i = -1
       if typeof amount === 'string' && amount.match( /^any/i )
-        td: img(src="./images/load.gif")
+        td: img(src="/images/load.gif")
       else
         while ( i++ < (amount-1) )
           if players[ i ]
@@ -11,4 +11,4 @@ table.table.table-striped.table-bordered
               img(src="#{ avatar }")
               p= players[ i ]
           else
-            td: img(src="./images/load.gif")
+            td: img(src="/images/load.gif")
