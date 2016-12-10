@@ -15,15 +15,15 @@ const socket = io.connect();
 window.onload = function () {
   $('#container').html(template());
 
-  playersHandler( socket );
-  loginResultHandler( socket );
-  gameStartHandler( socket );
-  timeLeftHandler( socket );
-  clickHandler( socket );
+  $.get('/profile', user => {
+    playersHandler(socket, user);
+    loginResultHandler(socket, user);
+    gameStartHandler(socket, user);
+    timeLeftHandler(socket, user);
+    clickHandler(socket, user);
 
-  $('#player-form').submit(function ( event ) {
-    event.preventDefault();
-    $.get('/profile', user => {
+    $('#player-form').submit(function ( event ) {
+      event.preventDefault();
       socket.emit('player', {
         name: user.name,
         avatar: user.avatar.path,
