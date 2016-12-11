@@ -7,16 +7,20 @@ const socketio = require('socket.io');
 const
   handleUserlogin = require('./handlers/login'),
   handleUserClicks = require('./handlers/click'),
-  handleGameStart = require('./handlers/game-start');
+  handleGameStart = require('./handlers/game-start'),
+  handleDisconnection = require('./handlers/user-disconnect');
 
-const players = [];
+const
+  players = [],
+  groups = [];
 
 module.exports =  function ( server ) {
   const io = socketio.listen( server );
 
   io.on('connection', function ( socket ) {
-    handleUserlogin(socket, io, players);
+    handleUserlogin(socket, io, groups, players);
     handleUserClicks(socket);
     handleGameStart(socket);
+    handleDisconnection(socket, io, groups);
   });
 };

@@ -1,14 +1,10 @@
 'use strict';
 
-const
-  forEach = require('lodash/forEach'),
-  find = require('lodash/find');
+const find = require('lodash/find');
 
 const GroupMaker = require('../../lib/group-maker');
 
-const groups = [];
-
-module.exports =  function handleUserlogin( socket, io, players ) {
+module.exports = function handleUserlogin(socket, io, groups, players) {
   socket.on('player', function ( player ) {
     var
       name = player.name,
@@ -19,8 +15,8 @@ module.exports =  function handleUserlogin( socket, io, players ) {
     players.push( name );
 
     const
-      hasAmount = find( groups, ['amount', amount] ),
-      hasAnyAmount = find( groups, ['amount', 'any'] ),
+      hasAmount = find(groups, ['amount', amount]),
+      hasAnyAmount = find(groups, ['amount', 'any']),
       matchAny = amount.match( /any/i );
 
     if (groups.length === 0 || (!matchAny && !hasAmount)) {
@@ -32,29 +28,19 @@ module.exports =  function handleUserlogin( socket, io, players ) {
         players: [{ name: name, id: socket.id }]
       });
 
+      socket.groupName = groupName;
       socket.join( groupName );
     } else if ((group = (hasAnyAmount || hasAmount)) || matchAny) {
       /* If there is no group matching the coming player's amount
       and the player has any amount he's gonna join the first 
-      wiating group*/
+      wiating group. */
       group = group || groups[ 0 ];
 
-      if (find( group.players, ['name', name] )) {
-        socket.emit('loginResult', {
-          success: false,
-          message: 'The Name is alrady taken!'
-        });
-
-        return;
-      }
-
-      /*
-        if there is already a group with "any" number
+      /* if there is already a group with "any" number
         of players. And the new player has "any" too,
         they are gonna play together and if
         otherwise, the group has to be renamed to
-        the new player's amount.
-      */
+        the new player's amount. */
       if ( hasAnyAmount ) {
         group.amount = !matchAny ? amount : 2;
       }
