@@ -45,10 +45,11 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
         group.amount = !matchAny ? amount : 2;
       }
 
+      socket.groupName = group.name;
       socket.join( group.name );
       group.players.push({ name: name, id: socket.id });
 
-      if ( group.players.length === Number( group.amount ) ) {
+      if (group.players.length === Number( group.amount )) {
         io.to( group.name ).emit('start', {
           amount: group.amount,
           players: group.players,
