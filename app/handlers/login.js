@@ -1,8 +1,12 @@
 'use strict';
 
-const find = require('lodash/find');
+const
+  crispy = require('crispy-string'),
+  find = require('lodash/find');
 
-const GroupMaker = require('../../lib/group-maker');
+const generateName = function ( len ) {
+  return crispy.base32String(len || 10);
+};
 
 module.exports = function handleUserlogin(socket, io, groups, players) {
   socket.on('player', function ( player ) {
@@ -20,7 +24,9 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
       matchAny = amount.match( /any/i );
 
     if (groups.length === 0 || (!matchAny && !hasAmount)) {
-      groupName = GroupMaker.createGroup();
+      do {
+        groupName = generateName();
+      } while (find(groups, ['name', groupName]));
 
       groups.push(group = {
         amount: amount,
