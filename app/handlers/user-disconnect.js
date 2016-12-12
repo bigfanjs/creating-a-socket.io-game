@@ -27,8 +27,5 @@ module.exports = function (socket, io, groups) {
 
       socket.leave( group.name );
     }
-
-    console.log('User Just Disconnected!', players);
-    io.emit('user disconnected');
   });
 };
