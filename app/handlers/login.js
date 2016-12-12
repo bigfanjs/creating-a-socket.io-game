@@ -11,7 +11,7 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
       amount = player.playerNumbers,
       group, groupName;
 
-    socket.player = name;
+    socket.player = player;
     players.push( name );
 
     const
