@@ -2,7 +2,9 @@
 
 const
   crispy = require('crispy-string'),
-  find = require('lodash/find');
+  find = require('lodash/find'),
+  includes = require('lodash/includes'),
+  Picture = require('../../models').Picture;
 
 const generateName = function ( len ) {
   return crispy.base32String(len || 10);
@@ -13,7 +15,7 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
     var
       name = player.name,
       amount = player.playerNumbers,
-      group, groupName;
+      group;
 
     socket.player = player;
     players.push( name );
@@ -24,6 +26,8 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
       matchAny = amount.match( /any/i );
 
     if (groups.length === 0 || (!matchAny && !hasAmount)) {
+      let groupName;
+
       do {
         groupName = generateName();
       } while (find(groups, ['name', groupName]));
@@ -56,12 +60,42 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
       group.players.push({ name: name, id: socket.id });
 
       if (group.players.length === Number( group.amount )) {
-        io.to( group.name ).emit('start', {
-          amount: group.amount,
-          players: group.players,
-          path: '/images/one.jpg'
+        Picture.find({}, (err, pictures) => {
+          if ( err ) {
+            io.to( group.name ).emit('error', { text: err });
+            return;
+          }
+
+          pictures.forEach(picture => {
+            let shared = false;
+
+            const ids = picture.seenBy;
+
+            group.players.forEach(player => {
+              if (includes(ids, player.id)) { shared = true; }
+            });
+
+            if (!shared) {
+              Picture.update(
+                {_id: picture.id},
+                {$set: { seenBy: group.players.map(obj => obj.id) }},
+                ( err, picture ) => {
+                  if ( err ) {
+                    io.to( group.name ).emit('error', { text: err });
+                    return;
+                  }
+
+                  io.to( group.name ).emit('start', {
+                    amount: group.amount,
+                    players: group.players,
+                    path: picture.path
+                  });
+                  groups.splice( groups.indexOf( group ), 1 );
+                }
+              );
+            }
+          });
         });
-        groups.splice( groups.indexOf( group ), 1 );
 
         return;
       }
