@@ -67,18 +67,22 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
           }
 
           pictures.forEach(picture => {
-            let shared = false;
+            picture = picture.toObject();
+
+            let isKnown = false;
 
             const ids = picture.seenBy;
 
-            group.players.forEach(player => {
-              if (includes(ids, player.id)) { shared = true; }
-            });
+            if (ids && ids.length > 0) {
+              group.players.forEach(player => {
+                if (includes(ids, player.id)) { isKnown = true; }
+              });
+            }
 
-            if (!shared) {
-              Picture.update(
-                {_id: picture.id},
+            if (!isKnown) {
+              Picture.findByIdAndUpdate(picture._id,
                 {$set: { seenBy: group.players.map(obj => obj.id) }},
+                { new: false },
                 ( err, picture ) => {
                   if ( err ) {
                     io.to( group.name ).emit('error', { text: err });
