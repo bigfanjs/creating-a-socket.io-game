@@ -2,11 +2,12 @@
 
 module.exports = function ( mongoose, db ) {
   const schema = new mongoose.Schema({
+    path: String,
     diffs: Number,
     clicks: Number,
     spots: [{
-      xPos: Number,
-      yPos: Number
+      x: Number,
+      y: Number
     }]
   });
 
