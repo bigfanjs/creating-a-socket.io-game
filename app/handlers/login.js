@@ -60,45 +60,29 @@ module.exports = function handleUserlogin(socket, io, groups, players) {
       group.players.push({ name: name, id: socket.id });
 
       if (group.players.length === Number( group.amount )) {
-        Picture.find({}, (err, pictures) => {
+        Picture.findOne({seenBy: { $nin: group.players }}, (err, picture) => {
           if ( err ) {
             io.to( group.name ).emit('error', { text: err });
             return;
           }
 
-          pictures.forEach(picture => {
-            picture = picture.toObject();
+          Picture.findByIdAndUpdate(picture._id,
+            {$set: { seenBy: group.players.map(obj => obj.id) }},
+            { new: false },
+            ( err, picture ) => {
+              if ( err ) {
+                io.to( group.name ).emit('error', { text: err });
+                return;
+              }
 
-            let isKnown = false;
-
-            const ids = picture.seenBy;
-
-            if (ids && ids.length > 0) {
-              group.players.forEach(player => {
-                if (includes(ids, player.id)) { isKnown = true; }
+              io.to( group.name ).emit('start', {
+                amount: group.amount,
+                players: group.players,
+                path: picture.path
               });
+              groups.splice( groups.indexOf( group ), 1 );
             }
-
-            if (!isKnown) {
-              Picture.findByIdAndUpdate(picture._id,
-                {$set: { seenBy: group.players.map(obj => obj.id) }},
-                { new: false },
-                ( err, picture ) => {
-                  if ( err ) {
-                    io.to( group.name ).emit('error', { text: err });
-                    return;
-                  }
-
-                  io.to( group.name ).emit('start', {
-                    amount: group.amount,
-                    players: group.players,
-                    path: picture.path
-                  });
-                  groups.splice( groups.indexOf( group ), 1 );
-                }
-              );
-            }
-          });
+          );
         });
 
         return;
