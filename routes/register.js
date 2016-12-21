@@ -22,7 +22,7 @@ exports.signup = function (req, res, next) {
         password: body.password,
         Model: UserModel,
 
-        //-- temparary ----------
+        //-- temparary placeholders----------
         score: 37,
         level: 5,
         diffs: 45,
@@ -32,7 +32,7 @@ exports.signup = function (req, res, next) {
         ranking: 245,
         avatar: {
           name: 'pic',
-          path: '/images/6qwi93.jpg'
+          path: '/images/user.png'
         },
         birthday: '1995/10/30',
         email: 'example@email.com',
@@ -49,7 +49,7 @@ exports.signup = function (req, res, next) {
         if ( err ) { return next( err ); }
 
         req.session.uid = user._id;
-        res.redirect('/profile/:' + user._id + '/view');
+        res.redirect('/profile/view');
       });
     }
   });
