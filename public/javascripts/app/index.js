@@ -43,7 +43,7 @@ export default {
     const
       ctx = canvas.getContext('2d'),
       id = socket.id,
-      p = options.players.find(p => p.id.substr(2) === id);
+      p = options.players.find(p => p.id === id);
 
     options.name = p.name;
 
