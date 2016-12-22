@@ -3,101 +3,128 @@
 const
   crispy = require('crispy-string'),
   find = require('lodash/find'),
-  includes = require('lodash/includes'),
+  difference = require('lodash/difference'),
+  intersection = require('lodash/intersection'),
   Picture = require('../../models').Picture;
 
-const generateName = function ( len ) {
-  return crispy.base32String(len || 10);
-};
+const
+  generateName = function ( len ) {
+    return crispy.base32String(len || 10);
+  },
+  findPicture = function (pictures, players) {
+    return pictures.forEach(picture => {
+      const ids = players.map(player => player._id);
 
-module.exports = function handleUserlogin(socket, io, groups, players) {
-  socket.on('player', function ( player ) {
-    var
-      name = player.name,
-      amount = player.playerNumbers,
-      group;
+      if (intersection(picture.seenBy, ids).length === 0) {
+        return picture;
+      }
+    });
+  },
+  addToQueue = function (socket, queue, player) {
+    queue.push({
+      player: player,
+      amount: player.competitors_num,
+      id: socket.id
+    });
+  },
+  createGroup = function (groups, amount, players, picture) {
+    var name;
 
-    socket.player = player;
-    players.push( name );
+    do {
+      name = generateName();
+    } while (find(groups, ['name', name]));
 
-    const
-      hasAmount = find(groups, ['amount', amount]),
-      hasAnyAmount = find(groups, ['amount', 'any']),
-      matchAny = amount.match( /any/i );
+    const group = { name, amount, players, url: picture.url};
 
-    if (groups.length === 0 || (!matchAny && !hasAmount)) {
-      let groupName;
+    return group ;
+  },
+  findMatching = function findMatching(queue, groups, pictures) {
+    var group, players = queue.slice(0);
 
-      do {
-        groupName = generateName();
-      } while (find(groups, ['name', groupName]));
+    const fn = function (b, p1, p2) {
+      return (b && p2.amount.match(/any/i)) ||
+        p2.amount === p1.amount;
+    };
 
-      groups.push(group = {
-        amount: amount,
-        name: groupName,
-        players: [{ name: name, id: socket.id }]
-      });
+    const anies = [];
 
-      socket.groupName = groupName;
-      socket.join( groupName );
-    } else if ((group = (hasAnyAmount || hasAmount)) || matchAny) {
-      /* If there is no group matching the coming player's amount
-      and the player has any amount he's gonna join the first 
-      wiating group. */
-      group = group || groups[ 0 ];
+    for (let i = 0; i < players.length; i++) {
+      const
+        player = players[ i ],
+        next = player[i+1],
+        amount = player.amount,
+        picture = findPicture.bind(null, pictures);
 
-      /* if there is already a group with "any" number
-        of players. And the new player has "any" too,
-        they are gonna play together and if
-        otherwise, the group has to be renamed to
-        the new player's amount. */
-      if ( hasAnyAmount ) {
-        group.amount = !matchAny ? amount : 2;
+      if (amount.match(/^any/i)) {
+        let pic;
+
+        anies.push(player);
+
+        if (anies.length > 1           &&
+            !next.amount.match(/any/i) &&
+            (pic=picture(anies))
+          ) {
+          console.log('match found!');
+          group = createGroup(groups, anies.length, anies, pic);
+          queue = difference(queue, anies);
+          break;
+        } else continue;
       }
 
-      socket.groupName = group.name;
-      socket.join( group.name );
-      group.players.push({ name: name, id: socket.id });
+      const result = players
+        .filter(fn.bind(null, true, player))
+        .slice(0, amount);
 
-      if (group.players.length === Number( group.amount )) {
-        Picture.findOne({seenBy: { $nin: group.players }}, (err, picture) => {
-          if ( err ) {
-            io.to( group.name ).emit('error', { text: err });
-            return;
-          }
+      let pic;
 
-          Picture.findByIdAndUpdate(picture._id,
-            {$set: { seenBy: group.players.map(obj => obj.id) }},
-            { new: false },
-            ( err, picture ) => {
-              if ( err ) {
-                io.to( group.name ).emit('error', { text: err });
-                return;
-              }
-
-              io.to( group.name ).emit('start', {
-                amount: group.amount,
-                players: group.players,
-                path: picture.path
-              });
-              groups.splice( groups.indexOf( group ), 1 );
-            }
-          );
-        });
-
-        return;
+      if (result.length === amount && (pic=picture(result))) {
+        console.log('matching found!');
+        group = createGroup(groups, amount, result, pic);
+        queue = difference(queue, result);
+        break;
+      } else {
+        players = players.filter(fn.bind(null, false, player));
+        i = i - 1;
       }
     }
 
-    socket.emit('loginResult', {
-      success: true,
-      amount: amount
-    });
+    return group;
+  };
 
-    io.to( group.name ).emit('players', {
-      amount: amount,
-      players: group.players.map(obj => obj.name),
-      avatar: player.avatar
+module.exports = function handleUserlogin(socket, io, queue, players) {
+  Picture.find({}, (err, pictures) => {
+    if ( err ) { throw err; }
+
+    (function timer() {
+      const group = findMatching(queue, pictures);
+
+      if (typeof group !== 'undefined') {
+        socket.emit('start', group);
+      }
+
+      setTimeout(timer, 1000);
+    })();
+
+    socket.on('player', function ( player ) {
+      var
+        name = player.name,
+        amount = player.competitors_num;
+
+      socket.player = player;
+      players.push( name );
+
+      addToQueue(socket, queue, player);
+
+      socket.emit('loginResult', {
+        success: true,
+        amount: amount
+      });
+
+      io.to( group.name ).emit('players', {
+        amount: amount,
+        players: group.players.map(obj => obj.name),
+        avatar: player.avatar
+      });
     });
   });
 };
