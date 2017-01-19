@@ -10,17 +10,17 @@ const
   handleGameStart = require('./handlers/game-start'),
   handleDisconnection = require('./handlers/user-disconnect');
 
-const
-  players = [],
-  groups = [];
+const players = [];
+
+var queue = [];
 
 module.exports =  function ( server ) {
   const io = socketio.listen( server );
 
   io.on('connection', function ( socket ) {
-    handleUserlogin(socket, io, groups, players);
+    handleUserlogin(socket, io, queue, players);
     handleUserClicks(socket);
     handleGameStart(socket);
-    handleDisconnection(socket, io, groups);
+    handleDisconnection(socket, io, queue);
   });
 };
