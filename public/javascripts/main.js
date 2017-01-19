@@ -27,7 +27,7 @@ window.onload = function () {
       socket.emit('player', {
         name: user.name,
         avatar: user.avatar.path,
-        playerNumbers: $('#players-num').val()
+        competitors_num: $('#players-num').val()
       });
     });
   });
