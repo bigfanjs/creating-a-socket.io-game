@@ -15,7 +15,7 @@ const socket = io.connect();
 window.onload = function () {
   $('#container').html(template());
 
-  $.get('/profile', user => {
+  $.get('/session', user => {
     playersHandler(socket, user);
     loginResultHandler(socket, user);
     gameStartHandler(socket, user);
@@ -25,8 +25,9 @@ window.onload = function () {
     $('#player-form').submit(function ( event ) {
       event.preventDefault();
       socket.emit('player', {
+        id: user._id,
         name: user.name,
-        avatar: user.avatar.path,
+        avatar: user.avatar.url,
         competitors_num: $('#players-num').val()
       });
     });
