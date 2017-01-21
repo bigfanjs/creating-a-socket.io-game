@@ -51,6 +51,7 @@ app.use(express.static(join(__dirname, './public')));
 app.use('/login', userMiddleware.provideUser());
 app.use('/admin/login', adminMiddleware.provideAdmin());
 app.use('/profile', userMiddleware.isAuthenticated());
+app.use('/session', userMiddleware.isAuthenticated());
 app.use('/admin/pictures/', adminMiddleware.isAuthenticated());
 
 app.get('/', (req, res, next) => {
@@ -62,6 +63,11 @@ app.get('/', (req, res, next) => {
     res.redirect('/login');
   }
 });
+
+app.get('/session', function (req, res, next) {
+  res.status(200).json( req.user );
+});
+
 app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
@@ -73,9 +79,8 @@ app.get('/admin/logout', login.logout);
 app.get('/signup', register.form);
 app.post('/signup', register.signup);
 
-app.get('/profile/view', profile.view);
+app.get('/profile', profile.profile);
 app.get('/profile/edit', profile.form);
-app.get('/profile', profile.player);
 app.get('/profile/play', profile.play);
 app.put('/profile/edit/', profile.edit);
 app.delete('/profile', profile.remove);
@@ -85,11 +90,7 @@ app.post('/admin/login', login.submit);
 app.get('/admin/logout', login.logout);
 
 app.get('/admin', function (req, res) {
-  if (adminMiddleware.isAuthenticated()) {
-    res.redirect('/admin/pictures');
-  } else {
-    res.redirect('/admin/login');
-  }
+  res.redirect('/admin/pictures');
 });
 app.get('/admin/pictures', pictures.showPictures);
 app.get('/admin/pictures/view/:id', pictures.viewPicture);
