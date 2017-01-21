@@ -4,16 +4,12 @@ const
   path = require('path'),
   User = require('../models').User;
 
-exports.view = function (req, res, next) {
+exports.profile = function (req, res, next) {
   res.render('profile-view', {title: 'Profile'});
 };
 
 exports.form = function (req, res, next) {
   res.render('profile-edit');
-};
-
-exports.player = function (req, res, next) {
-  res.status(200).json( req.user );
 };
 
 exports.play = function (req, res) {
