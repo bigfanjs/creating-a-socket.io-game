@@ -26,28 +26,23 @@ const
   drawings = [],
   actions = [];
 
-function load( path ) {
+function load( url ) {
   const image = new Image();
 
   const promise = new Promise(( res, rej ) => {
     image.onload = () => { res( image ); };
   });
 
-  image.src = path;
+  image.src = url;
 
   return promise;
 }
 
 export default {
   init(canvas, socket, options) {
-    const
-      ctx = canvas.getContext('2d'),
-      id = socket.id,
-      p = options.players.find(p => p.id === id);
+    const ctx = canvas.getContext('2d');
 
-    options.name = p.name;
-
-    load(options.path).then(function ( image ) {
+    load(options.url).then(function ( image ) {
       const
         layout = GameLayout(canvas, drawings, options),
         infoBar = InfoBar(canvas, drawings, options);
