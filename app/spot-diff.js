@@ -75,8 +75,6 @@ const
         next = sockets[i+1],
         amount = socket.player.competitors_num;
 
-      console.log(queue);
-
       if (amount.match(/^any/i)) {
         let pic;
 
@@ -120,14 +118,16 @@ module.exports =  function ( server ) {
     if (err) { throw err; }
 
     (function timer() {
-      const group = findMatching(io, pictures);
+      const
+        players = queue.slice(0),
+        group = findMatching(io, pictures);
 
       if (typeof group !== 'undefined') {
         const
           sockets = group.sockets,
           name = group.name;
 
-        if (intersection(queue, sockets).length == sockets.length) {
+        if (intersection(players, sockets).length == sockets.length) {
           sockets.forEach(socket => {
             socket.groupName = name;
             socket.join(name);
