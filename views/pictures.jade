@@ -5,7 +5,7 @@ block contents
     .col-xs-12.options-bar
       button.btn.btn-lg.btn-success Create A New Picture
     .col-xs-12
-      table.table.table-striped
+      table.table.table-striped.table-bordered
         tr
           th picture
           th diffs
@@ -14,8 +14,8 @@ block contents
           th time
         each picture in pictures
           tr
-            td: img(src="#{ picture.image.path }")
-            td picture.diffs
-            td picture.games
-            td picture.clicks
-            td picture.time
+            td: img.img-responsive(width="100" src=picture.url)
+            td= picture.diffs
+            td= picture.games
+            td= picture.clicks
+            td= picture.time
