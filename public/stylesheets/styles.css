@@ -69,3 +69,11 @@ a {
   margin: auto;
   margin-top: 30px; 
 }
+
+th, td {
+  text-align: center;
+}
+
+.img-responsive {
+  display: inline-block;
+}
