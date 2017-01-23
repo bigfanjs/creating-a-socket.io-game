@@ -58,7 +58,7 @@ app.get('/', (req, res, next) => {
   const uid = req.session.uid;
 
   if (uid) {
-    res.redirect('/profile/view');
+    res.redirect('/profile');
   } else {
     res.redirect('/login');
   }
