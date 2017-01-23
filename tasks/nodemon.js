@@ -11,9 +11,14 @@ export default function () {
     return nodemon({
       script: '../build/server.js',
       execMap: {
-        "js": "node --harmony"
+        'js': 'node --harmony'
       },
-      ignore: ['gulpfile.babel.js', '.babelrc', '/node_modules/'],
+      ignore: [
+        'gulpfile.babel.js',
+        '.babelrc',
+        '/node_modules/',
+        '.git/'
+      ],
       tasks: ['node-babel'],
       watch: [
         'server.js',
