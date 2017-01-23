@@ -2,7 +2,7 @@
 
 module.exports = function ( mongoose, db ) {
   const schema = new mongoose.Schema({
-    path: String,
+    url: String,
     diffs: Number,
     clicks: Number,
     spots: [{
