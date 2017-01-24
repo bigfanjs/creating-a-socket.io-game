@@ -1,3 +1,5 @@
+import clickSuccessHandler from '../handlers/click-success-handler';
+
 import GameLayout from './views/game-layout';
 import InfoBar from './views/info-bar';
 import picture from './views/picture';
@@ -10,7 +12,7 @@ import score from './views/score';
 import player from './views/player';
 
 // import actions:
-import click from './actions/click';
+import onclick from './actions/click';
 
 window.requestAnimFrame =
   window.requestAnimationFrame       ||
@@ -21,10 +23,7 @@ window.requestAnimFrame =
   window.msRequestAnimationFrame     ||
   (callback => window.setTimeout(callback, 1000/60));
 
-const
-  assign = Object.assign,
-  drawings = [],
-  actions = [];
+const drawings = [], actions = [];
 
 function load( url ) {
   const image = new Image();
@@ -48,8 +47,8 @@ export default {
         infoBar = InfoBar(canvas, drawings, options);
 
       layout.getRegion('infoBar').show( InfoBar );
-      layout.getRegion('players').show( players );
       layout.getRegion('picture').show(picture.bind(null, image));
+      layout.getRegion('players').show( players );
       layout.getRegion('centerBar').show( centerBar );
 
       infoBar.getRegion('clicks').show( clicks );
@@ -57,9 +56,11 @@ export default {
       infoBar.getRegion('score').show( score );
       infoBar.getRegion('player').show( player );
 
-      const clickAction = click(canvas, socket, actions);
+      onclick(canvas, socket, actions);
 
-      const gameLoop = function gameLoop() {
+      clickSuccessHandler(socket, drawings);
+
+      (function gameLoop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         drawings.forEach(drawing => {
@@ -74,7 +75,7 @@ export default {
         });
 
         requestAnimFrame(gameLoop);
-      }();
+      })();
 
       socket.emit('game-start');
     });
