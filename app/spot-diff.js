@@ -53,7 +53,11 @@ const
       name = generateName();
     } while (find(groupNames, ['name', name]));
 
-    const group = { name, amount, sockets, url: picture.url};
+    const group = {
+      name, amount, sockets,
+      url: picture.url,
+      pic_id: picture._id 
+    };
 
     return group ;
   },
@@ -130,7 +134,9 @@ module.exports =  function ( server ) {
         if (intersection(players, sockets).length == sockets.length) {
           sockets.forEach(socket => {
             socket.groupName = name;
+            socket.pic_id = group.pic_id,
             socket.join(name);
+            handleUserClicks(io, socket);
           });
 
           io.to(name).emit('start', {
@@ -147,7 +153,6 @@ module.exports =  function ( server ) {
 
   io.on('connection', function ( socket ) {
     handleUserlogin(socket, queue, players);
-    handleUserClicks(socket);
     handleGameStart(socket);
     handleDisconnection(socket, io, queue);
   });
