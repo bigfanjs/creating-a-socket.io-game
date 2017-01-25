@@ -53,11 +53,7 @@ const
       name = generateName();
     } while (find(groupNames, ['name', name]));
 
-    const group = {
-      name, amount, sockets,
-      url: picture.url,
-      pic_id: picture._id 
-    };
+    const group = { name, amount, sockets, picture };
 
     return group ;
   },
@@ -65,8 +61,10 @@ const
     var group, sockets = queue.slice(0);
 
     const fn = function (b, player, socket) {
-      return (b && socket.player.competitors_num.match(/any/i)) ||
-        socket.player.competitors_num === player.competitors_num;
+      const amount = socket.player.competitors_num;
+
+      return (b && typeof amount === 'undefined') ||
+        amount === player.competitors_num;
     };
 
     const
@@ -79,18 +77,17 @@ const
         next = sockets[i+1],
         amount = socket.player.competitors_num;
 
-      if (amount.match(/^any/i)) {
+      if (typeof amount === 'undefined') {
         let pic;
 
         anies.push(socket);
 
         if (anies.length > 1 &&
-            (!next || !next.player.amount.match(/any/i)) &&
+            (!next || typeof next.player.amount !== 'undefined') &&
             (pic=picture(anies))
           ) {
           group = createGroup(io, anies.length, anies, pic);
           queue = difference(queue, anies);
-          // console.log(queue);
           break;
         } else continue;
       }
@@ -101,8 +98,7 @@ const
 
       let pic;
 
-      if (result.length === amount && (pic=picture(result))) {
-        console.log('matching found!');
+      if (result.length == amount && (pic=picture(result))) {
         group = createGroup(io, amount, result, pic);
         queue = difference(queue, result);
         break;
@@ -129,19 +125,20 @@ module.exports =  function ( server ) {
       if (typeof group !== 'undefined') {
         const
           sockets = group.sockets,
-          name = group.name;
+          name = group.name,
+          pic = group.picture;
 
         if (intersection(players, sockets).length == sockets.length) {
           sockets.forEach(socket => {
             socket.groupName = name;
-            socket.pic_id = group.pic_id,
+            socket.pic_id = pic._id,
             socket.join(name);
-            handleUserClicks(io, socket);
+            handleUserClicks(io, socket, pic);
           });
 
           io.to(name).emit('start', {
             amount: group.amount,
-            url: group.url,
+            url: pic.url,
             players: sockets.map(socket => socket.player)
           });
         }

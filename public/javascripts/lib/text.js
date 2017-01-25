@@ -33,7 +33,9 @@ export default {
 
     if ( this.baseLine ) {
       ctx.textBaseline = this.baseLine;
-    } else if ( this.textAlign ) {
+    }
+
+    if ( this.textAlign ) {
       ctx.textAlign = this.textAlign;
     }
 

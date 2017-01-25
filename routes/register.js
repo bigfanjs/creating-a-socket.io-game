@@ -49,7 +49,7 @@ exports.signup = function (req, res, next) {
         if ( err ) { return next( err ); }
 
         req.session.uid = user._id;
-        res.redirect('/profile/view');
+        res.redirect('/profile');
       });
     }
   });

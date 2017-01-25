@@ -1,10 +1,7 @@
 form#player-form
   .form-group
     label.control-label(for="players-num") Number Of Players
-    select.form-control#players-num
-      option(value="any") Any
-      option(value="2") 2
-      option(value="3") 3
-      option(value="4") 4
+    input.form-control(type="number" min="2" max="10")
+    span.help-block leave it empty to play with any avaliable group
     br
     input.btn.btn-primary(type="submit" value="Look for players")

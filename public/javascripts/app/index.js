@@ -28,7 +28,7 @@ const drawings = [], actions = [];
 function load( url ) {
   const image = new Image();
 
-  const promise = new Promise(( res, rej ) => {
+  const promise = new Promise(res => {
     image.onload = () => { res( image ); };
   });
 
@@ -58,7 +58,7 @@ export default {
 
       onclick(canvas, socket, actions);
 
-      clickSuccessHandler(socket, drawings);
+      clickSuccessHandler(socket, drawings, layout);
 
       (function gameLoop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

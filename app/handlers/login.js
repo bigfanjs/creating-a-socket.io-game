@@ -1,19 +1,16 @@
 'use strict';
 
-const addToQueue = function (socket, queue) {
-  queue.push( socket );
-};
-
 module.exports = function (socket, queue, players) {
   socket.on('player', function ( player ) {
-    var
+    const
       name = player.name,
       amount = player.competitors_num;
 
+    player.id = socket.id;
     socket.player = player;
-    players.push( name );
 
-    addToQueue(socket, queue);
+    players.push( name );
+    queue.push( socket );
 
     socket.emit('loginResult', {
       success: true,

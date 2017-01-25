@@ -24,6 +24,6 @@ export default function (canvas, socket, actions) {
     socket.emit('click', {
       x: mouse.x,
       y: mouse.y - 50
-    });
+    }, canvas.width-100);
   }, false);
 }

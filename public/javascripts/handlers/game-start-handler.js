@@ -5,10 +5,7 @@ import template from '../templates/game-area.pug';
 export default function (socket, user) {
   socket.on('start', function ( obj ) {
     $('#container').html(template());
-
-    const
-      canvas = document.querySelector('#canvas'),
-      ctx = canvas.getContext('2d');
+    const canvas = document.querySelector('#canvas');
 
     game.init(canvas, socket, Object.assign(obj, user));
   });

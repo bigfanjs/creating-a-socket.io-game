@@ -4,5 +4,10 @@ block contents
   form(method="post" action="/")
     .form-group
       label(for="clicks") Clicks:
-      input#clicks.form-control(type="text" value="0")
+      input#clicks.form-control(type="number" max="20" min="1")
     .form-group
+      label(for="duration-time")
+      input#duration-time.form-control(type="number" max="5" min="1")
+    .btn-group
+      input.btn.btn-success(type="submit") Save
+      input.btn.btn-warning Cancel
