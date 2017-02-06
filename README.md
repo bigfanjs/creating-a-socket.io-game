@@ -3,4 +3,7 @@
  two identical images with a few number of hidden differences which
  you have to find them all.
 
-## Working on it...
+This is a very simple spot diff game using socket.io for real time communication between client and server.
+
+You can see how it woks on Youtube:
+https://www.youtube.com/edit?video_id=uW73MyqgmFU
