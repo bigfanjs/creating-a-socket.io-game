@@ -6,4 +6,4 @@
 This is a very simple spot diff game using socket.io for real time communication between client and server.
 
 You can see how it woks on Youtube:
-https://www.youtube.com/edit?video_id=uW73MyqgmFU
+https://www.youtube.com/watch?v=uW73MyqgmFU
